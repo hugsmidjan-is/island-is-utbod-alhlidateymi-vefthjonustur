@@ -1,0 +1,7 @@
+mutation CreatePresignedPost($input: CreatePresignedPostInput!) {
+  createPresignedPost(input: $input) {
+    url
+    fields
+    key
+  }
+}

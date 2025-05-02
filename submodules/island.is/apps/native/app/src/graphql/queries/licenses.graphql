@@ -1,0 +1,55 @@
+query ListLicenses($input: GetGenericLicensesInput!, $locale: String) {
+  genericLicenseCollection(input: $input, locale: $locale) {
+    errors {
+      code
+      message
+    }
+    licenses {
+      ...GenericUserLicenseFragment
+    }
+  }
+}
+
+query GetLicense($input: GetGenericLicenseInput!, $locale: String!) {
+  genericLicense(input: $input, locale: $locale) {
+    ...GenericUserLicenseFragment
+    barcode {
+      token
+      expiresIn
+    }
+  }
+}
+
+mutation GeneratePkPass($input: GeneratePkPassInput!) {
+  generatePkPass(input: $input) {
+    pkpassUrl
+  }
+}
+
+mutation VerifyPkPass($input: VerifyPkPassInput!) {
+  verifyPkPass(input: $input) {
+    data
+    valid
+    error {
+      status
+      message
+      data
+    }
+  }
+}
+
+mutation VerifyLicenseBarcode($input: VerifyLicenseBarcodeInput!) {
+  verifyLicenseBarcode(input: $input) {
+    data {
+      ... on LicenseDriverLicenseData {
+        nationalId
+        name
+        picture
+      }
+    }
+    valid
+    error
+    licenseType
+    barcodeType
+  }
+}

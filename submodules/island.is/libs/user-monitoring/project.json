@@ -1,0 +1,19 @@
+{
+  "name": "user-monitoring",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/user-monitoring/src",
+  "projectType": "library",
+  "tags": ["lib:dom", "scope:dom"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/user-monitoring"],
+      "options": {
+        "jestConfig": "libs/user-monitoring/jest.config.ts"
+      }
+    }
+  }
+}

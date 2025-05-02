@@ -1,0 +1,20 @@
+{
+  "name": "infra-tracing",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/infra-tracing/src",
+  "projectType": "library",
+  "tags": ["scope:node", "lib:node"],
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/infra-tracing/jest.config.ts"
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/infra-tracing"]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+query GetWorkMachines($input: WorkMachinesCollectionInput) {
+  workMachinesPaginatedCollection(input: $input) {
+    data {
+      id
+      registrationNumber
+      type
+      status
+      dateLastInspection
+    }
+    links {
+      rel
+    }
+    totalCount
+  }
+}
+
+query GetWorkMachineDocument($input: WorkMachinesCollectionDocumentInput) {
+  workMachinesCollectionDocument(input: $input) {
+    downloadUrl
+  }
+}

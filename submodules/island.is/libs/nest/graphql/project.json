@@ -1,0 +1,19 @@
+{
+  "name": "nest-graphql",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nest/graphql/src",
+  "projectType": "library",
+  "tags": ["scope:nest", "lib:nest"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/nest/graphql"],
+      "options": {
+        "jestConfig": "libs/nest/graphql/jest.config.ts"
+      }
+    }
+  }
+}

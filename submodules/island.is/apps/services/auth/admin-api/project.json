@@ -1,0 +1,73 @@
+{
+  "name": "services-auth-admin-api",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/services/auth/admin-api/src",
+  "projectType": "application",
+  "prefix": "auth-admin-api",
+  "tags": ["scope:auth-api"],
+  "generators": {},
+  "targets": {
+    "build": {
+      "executor": "./tools/executors/node:build",
+      "options": {
+        "outputPath": "dist/apps/services/auth/admin-api",
+        "main": "apps/services/auth/admin-api/src/main.ts",
+        "tsConfig": "apps/services/auth/admin-api/tsconfig.app.json",
+        "assets": ["apps/services/auth/admin-api/src/assets"],
+        "maxWorkers": 2
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      },
+      "outputs": ["{options.outputPath}"]
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "services-auth-admin-api:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/services/auth/admin-api/jest.config.ts",
+        "runInBand": true
+      },
+      "outputs": ["{workspaceRoot}/coverage/apps/services/auth/admin-api"]
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn start --project services-auth-admin-api"
+      }
+    },
+    "codegen/backend-schema": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cross-env INIT_SCHEMA=true yarn ts-node -P apps/services/auth/admin-api/tsconfig.app.json apps/services/auth/admin-api/src/buildOpenApi.ts"
+      },
+      "outputs": ["{projectRoot}/src/openapi.yaml"]
+    },
+    "docker-express": {
+      "executor": "Intentionally left blank, only so this target is valid when using `nx show projects --with-target docker-express`"
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "yarn start --project services-auth-admin-api"
+          }
+        ],
+        "parallel": true
+      }
+    }
+  }
+}

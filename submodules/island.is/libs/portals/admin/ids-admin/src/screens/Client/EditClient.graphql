@@ -1,0 +1,32 @@
+mutation UpdateClient($input: AuthAdminPatchClientInput!) {
+  patchAuthAdminClient(input: $input) {
+    environment
+    clientId
+    displayName {
+      locale
+      value
+    }
+    redirectUris
+    postLogoutRedirectUris
+    absoluteRefreshTokenLifetime
+    slidingRefreshTokenLifetime
+    refreshTokenExpiration
+    supportsCustomDelegation
+    supportsPersonalRepresentatives
+    supportsLegalGuardians
+    supportsProcuringHolders
+    supportTokenExchange
+    promptDelegations
+    requireApiScopes
+    requireConsent
+    requirePkce
+    singleSession
+    accessTokenLifetime
+    allowOfflineAccess
+    sso
+    customClaims {
+      type
+      value
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "logging",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/logging/src",
+  "projectType": "library",
+  "tags": ["lib:nest", "lib:node", "scope:nest", "TODO:splitUp"],
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/logging/jest.config.ts"
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/logging"]
+    }
+  }
+}

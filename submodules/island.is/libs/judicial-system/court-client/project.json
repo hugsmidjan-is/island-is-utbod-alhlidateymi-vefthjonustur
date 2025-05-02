@@ -1,0 +1,27 @@
+{
+  "name": "judicial-system-court-client",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/judicial-system/court-client/src",
+  "projectType": "library",
+  "tags": ["lib:judicial-system-api", "scope:judicial-system-api"],
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/judicial-system/court-client/jest.config.ts"
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/judicial-system/court-client"]
+    },
+    "codegen/backend-client": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn openapi-generator -o libs/judicial-system/court-client/gen/fetch -i libs/judicial-system/court-client/src/clientConfig.json"
+      },
+      "outputs": ["{projectRoot}/gen/fetch"]
+    }
+  }
+}

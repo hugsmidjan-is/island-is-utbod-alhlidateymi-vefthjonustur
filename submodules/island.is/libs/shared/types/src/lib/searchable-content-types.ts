@@ -1,0 +1,15 @@
+export enum SearchableContentTypes {
+  webArticle = 'webArticle',
+  webSubArticle = 'webSubArticle',
+  webLifeEventPage = 'webLifeEventPage',
+  webDigitalIcelandService = 'webDigitalIcelandService',
+  webDigitalIcelandCommunityPage = 'webDigitalIcelandCommunityPage',
+  webNews = 'webNews',
+  webOrganizationSubpage = 'webOrganizationSubpage',
+  webOrganizationPage = 'webOrganizationPage',
+  webQNA = 'webQNA',
+  webLink = 'webLink',
+  webProjectPage = 'webProjectPage',
+  webManual = 'webManual',
+  webManualChapterItem = 'webManualChapterItem',
+}

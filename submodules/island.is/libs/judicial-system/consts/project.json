@@ -1,0 +1,20 @@
+{
+  "name": "judicial-system-consts",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/judicial-system/consts/src",
+  "projectType": "library",
+  "tags": ["scope:judicial-system", "lib:judicial-system"],
+  "generators": {},
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "libs/judicial-system/consts/jest.config.ts"
+      },
+      "outputs": ["{workspaceRoot}/coverage/libs/judicial-system/consts"]
+    }
+  }
+}

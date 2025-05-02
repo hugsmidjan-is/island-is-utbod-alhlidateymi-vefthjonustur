@@ -1,0 +1,19 @@
+{
+  "name": "nest-feature-flags",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/nest/feature-flags/src",
+  "projectType": "library",
+  "tags": ["lib:nest", "scope:nest"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/nest/feature-flags"],
+      "options": {
+        "jestConfig": "libs/nest/feature-flags/jest.config.ts"
+      }
+    }
+  }
+}

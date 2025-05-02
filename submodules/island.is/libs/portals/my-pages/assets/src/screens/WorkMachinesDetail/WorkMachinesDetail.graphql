@@ -1,0 +1,34 @@
+query GetWorkMachineById($input: WorkMachinesInput!) {
+  workMachine(input: $input) {
+    type
+    status
+    category
+    subCategory
+    registrationNumber
+    registrationDate
+    ownerName
+    ownerNationalId
+    ownerAddress
+    ownerPostcode
+    supervisorName
+    supervisorNationalId
+    supervisorAddress
+    supervisorPostcode
+    productionNumber
+    productionCountry
+    productionYear
+    importer
+    insurer
+    licensePlateNumber
+    dateLastInspection
+    links {
+      href
+      rel
+      displayTitle
+    }
+    labels {
+      columnName
+      displayTitle
+    }
+  }
+}

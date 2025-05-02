@@ -1,0 +1,10 @@
+query IndictmentPoliceCaseFiles($input: PoliceCaseFilesQueryInput!) {
+  policeCaseFiles(input: $input) {
+    id
+    name
+    policeCaseNumber
+    chapter
+    displayDate
+    type
+  }
+}

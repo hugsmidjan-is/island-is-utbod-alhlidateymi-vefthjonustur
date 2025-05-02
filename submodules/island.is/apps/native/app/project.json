@@ -1,0 +1,96 @@
+{
+  "name": "native-app",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/native/app/src",
+  "projectType": "application",
+  "tags": ["scope:js"],
+  "generators": {},
+  "targets": {
+    "start": {
+      "executor": "@nx/react-native:start",
+      "dependsOn": [],
+      "options": {
+        "port": 8081
+      }
+    },
+    "run-ios": {
+      "executor": "@nx/react-native:run-ios",
+      "dependsOn": [],
+      "options": {}
+    },
+    "bundle-ios": {
+      "executor": "@nx/react-native:bundle",
+      "dependsOn": [],
+      "outputs": ["{options.bundleOutput}"],
+      "options": {
+        "entryFile": "index.js",
+        "platform": "ios",
+        "bundleOutput": "dist/apps/native/app/ios/main.jsbundle"
+      }
+    },
+    "run-android": {
+      "executor": "@nx/react-native:run-android",
+      "dependsOn": [],
+      "options": {}
+    },
+    "build-android": {
+      "executor": "@nx/react-native:build-android",
+      "outputs": [
+        "{projectRoot}/android/app/build/outputs/bundle",
+        "{projectRoot}/android/app/build/outputs/apk"
+      ],
+      "dependsOn": [],
+      "options": {}
+    },
+    "build-ios": {
+      "executor": "@nx/react-native:build-ios",
+      "outputs": ["{projectRoot}/ios/build/Build"],
+      "dependsOn": [],
+      "options": {}
+    },
+    "pod-install": {
+      "executor": "@nx/react-native:pod-install",
+      "dependsOn": ["sync-deps"],
+      "outputs": ["{projectRoot}/ios/Pods", "{projectRoot}/ios/Podfile.lock"],
+      "options": {}
+    },
+    "upgrade": {
+      "executor": "@nx/react-native:upgrade",
+      "options": {}
+    },
+    "bundle-android": {
+      "executor": "@nx/react-native:bundle",
+      "dependsOn": [],
+      "outputs": ["{options.bundleOutput}"],
+      "options": {
+        "entryFile": "index.js",
+        "platform": "android",
+        "bundleOutput": "dist/apps/native/app/android/main.jsbundle"
+      }
+    },
+    "sync-deps": {
+      "executor": "@nx/react-native:sync-deps",
+      "options": {}
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/native/app/jest.config.ts"
+      }
+    },
+    "codegen/frontend-client": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false,
+        "command": "graphql-codegen --config apps/native/app/codegen.yml"
+      }
+    },
+    "docker-native": {
+      "executor": "Intentionally left blank, only so this target is valid when using `nx show projects --with-target docker-native`"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "shared-constants",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/constants/src",
+  "projectType": "library",
+  "tags": ["lib:js", "scope:js"],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/libs/shared/constants"],
+      "options": {
+        "jestConfig": "libs/shared/constants/jest.config.ts"
+      }
+    }
+  }
+}

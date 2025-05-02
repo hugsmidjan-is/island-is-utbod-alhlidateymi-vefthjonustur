@@ -1,0 +1,28 @@
+# Readmes in parent folders
+**/README.md
+
+# Unignore graphql schemas.
+!api.graphql
+
+# skilavottord
+apps/skilavottord/codegen.yml
+apps/skilavottord/api.graphql
+
+# air-discount-scheme
+apps/air-discount-scheme/codegen.yml
+apps/air-discount-scheme/api.graphql
+apps/air-discount-scheme/Makefile
+
+# judicial-system
+apps/judicial-system/codegen.yml
+apps/judicial-system/api.graphql
+
+# financial-aid
+apps/financial-aid/codegen.yml
+apps/financial-aid/api.graphql
+
+# Shared
+libs/shared/webpack
+
+# Ignoring tsconfig.base.json so changes to `paths` don't affect all projects
+tsconfig.base.json

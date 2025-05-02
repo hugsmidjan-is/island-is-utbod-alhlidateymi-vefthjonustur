@@ -1,0 +1,5 @@
+export { EmailModule } from './lib/email.module'
+export { EmailService } from './lib/email.service'
+export { emailModuleConfig } from './lib/email.config'
+export * from './types'
+export { AdapterService } from './tools/adapter.service'

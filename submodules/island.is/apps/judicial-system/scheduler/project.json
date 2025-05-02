@@ -1,0 +1,46 @@
+{
+  "name": "judicial-system-scheduler",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/judicial-system/scheduler/src",
+  "projectType": "application",
+  "prefix": "judicial-system-scheduler",
+  "tags": ["scope:judicial-system-api"],
+  "targets": {
+    "build": {
+      "executor": "./tools/executors/node:build",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/judicial-system/scheduler",
+        "main": "apps/judicial-system/scheduler/src/main.ts",
+        "tsConfig": "apps/judicial-system/scheduler/tsconfig.app.json",
+        "maxWorkers": 2
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "judicial-system-scheduler:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/judicial-system/scheduler"],
+      "options": {
+        "jestConfig": "apps/judicial-system/scheduler/jest.config.ts"
+      }
+    },
+    "docker-express": {
+      "executor": "Intentionally left blank, only so this target is valid when using `nx show projects --with-target docker-express`"
+    }
+  }
+}

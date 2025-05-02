@@ -1,0 +1,44 @@
+query CurrentUser {
+  currentUser {
+    user {
+      id
+      created
+      modified
+      active
+      name
+      title
+      role
+      email
+      mobileNumber
+      nationalId
+      canConfirmIndictment
+      institution {
+        id
+        type
+        name
+        defaultCourtId
+        policeCaseNumberPrefix
+      }
+    }
+    eligibleUsers {
+      id
+      created
+      modified
+      active
+      name
+      title
+      role
+      email
+      mobileNumber
+      nationalId
+      canConfirmIndictment
+      institution {
+        id
+        type
+        name
+        defaultCourtId
+        policeCaseNumberPrefix
+      }
+    }
+  }
+}
