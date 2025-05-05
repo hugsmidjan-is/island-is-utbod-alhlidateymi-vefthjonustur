@@ -1,0 +1,134 @@
+{
+  "name": "project-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/project-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "apps/project-api/dist",
+        "main": "apps/project-api/src/main.ts",
+        "tsConfig": "apps/project-api/tsconfig.app.json",
+        "assets": [
+          "apps/project-api/src/assets"
+        ],
+        "webpackConfig": "apps/project-api/webpack.config.js",
+        "generatePackageJson": true
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "project-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "project-api:build:development"
+        },
+        "production": {
+          "buildTarget": "project-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "apps/project-api/jest.config.ts"
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": [
+        "build"
+      ],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "load": true
+        }
+      }
+    },
+    "dev-services": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "docker compose up -d",
+        "cwd": "apps/project-api"
+      }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sequelize-cli db:migrate",
+        "cwd": "apps/project-api"
+      }
+    },
+    "migrate/generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sequelize-cli migration:generate --name $(whoami)",
+        "cwd": "apps/project-api"
+      }
+    },
+    "migrate/undo": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sequelize-cli db:migrate:undo",
+        "cwd": "apps/project-api"
+      }
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sequelize-cli db:seed:all",
+        "cwd": "apps/project-api"
+      }
+    },
+    "seed/undo": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sequelize-cli db:seed:undo",
+        "cwd": "apps/project-api"
+      }
+    },
+    "seed/generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sequelize-cli seed:generate --name $(whoami)",
+        "cwd": "apps/project-api"
+      }
+    },
+    "dev-init": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "yarn nx run project-api:dev-services",
+          "yarn nx run project-api:migrate",
+          "yarn nx run project-api:seed"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

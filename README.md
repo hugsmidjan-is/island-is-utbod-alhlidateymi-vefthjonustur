@@ -2,7 +2,32 @@
 
 Byggt á [dmr.ir repo](https://github.com/DMR-is/dmr.is).
 
-## Dev
+## `project-api`
+
+Keyra
+
+```bash
+yarn dev
+```
+
+Þjónustur á `http://localhost:3000/api/v1/`, swagger á `http://localhost:3000/swagger`.
+
+Test:
+
+```bash
+npx nx test project-api
+npx nx test project-api --coverage
+```
+
+### PostgreSQL
+
+TODO
+
+### Hýsing
+
+TODO
+
+## `project-web` dev
 
 Þarf node 20.15.0, direnv og vercel:
 
