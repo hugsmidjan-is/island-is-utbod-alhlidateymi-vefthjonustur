@@ -6,8 +6,9 @@ import { Module } from '@nestjs/common'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { SequelizeModule } from '@nestjs/sequelize'
 
-import { FooModule } from './foo/foo.module'
 import { LOGGER_PROVIDER } from '@hxm/logging'
+import { NationalRegistryModule } from './national-registry/national-registry.module'
+import { TaxReturnModule } from './tax-return/tax-return.module'
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { LOGGER_PROVIDER } from '@hxm/logging'
       inject: [DMRSequelizeConfigService],
     }),
     */
-    FooModule,
+    NationalRegistryModule,
+    TaxReturnModule,
   ],
   providers: [
     {
