@@ -1,9 +1,20 @@
 import { Logger, LOGGER_PROVIDER } from '@hxm/logging'
-import { Controller, Get, Inject, Param } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Inject,
+  InternalServerErrorException,
+  Param,
+} from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { INationalRegistryService } from './national-registry.types'
-import { GetPersonResponse } from './dto/national-registry.dto'
+import { GetPersonResponse } from './dto/national-registry.response.dto'
 import { NationalIdPipe } from '@hxm/pipelines'
+import {
+  BadRequestResponse,
+  InternalServerErrorResponse,
+  NotFoundResponse,
+} from 'apps/project-api/src/types/responses'
 
 @Controller({
   version: '1',
@@ -19,14 +30,17 @@ export class NationalRegistryController {
   @Get('/person/:nationalId')
   @ApiOperation({ operationId: 'getPersonByNationalId' })
   @ApiResponse({ status: 200, type: GetPersonResponse })
-  async advert(
+  @ApiResponse({ status: 400, type: BadRequestResponse })
+  @ApiResponse({ status: 404, type: NotFoundResponse })
+  @ApiResponse({ status: 500, type: InternalServerErrorResponse })
+  async getPerson(
     @Param('nationalId', NationalIdPipe) nationalId: string,
   ): Promise<GetPersonResponse> {
     const result = await this.nationalRegistryService.getPerson(nationalId)
 
     if (!result.ok) {
       this.logger.error('Could not get person', { error: result.error })
-      throw new Error(result.error.message)
+      throw new InternalServerErrorException(result.error.message)
     }
     return result.value
   }

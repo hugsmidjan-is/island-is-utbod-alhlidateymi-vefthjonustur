@@ -1,6 +1,5 @@
 import { ApiProperty, ApiResponse } from '@nestjs/swagger'
-import { PersonNotFound } from '../national-registry/dto/national-registry.dto'
-import { Result } from '../../../types'
+import { Result } from '../../../types/types'
 
 export type LocalizedString = {
   en: string
@@ -66,11 +65,6 @@ export class PersonPrefill {
   // allowancesAndBenefits!: AllowancesAndBenefits
 }
 
-@ApiResponse({
-  status: 404,
-  description: 'Person not found',
-  type: PersonNotFound,
-})
 export class GetPersonPrefillResponse {
   @ApiProperty({
     description: 'PersonPrefill',
