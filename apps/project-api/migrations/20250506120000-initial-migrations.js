@@ -69,10 +69,15 @@ module.exports = {
       )
 
       // Tax return
-
       await queryInterface.createTable(
         'tax_return',
         {
+          id: {
+            type: Sequelize.UUID,
+            allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
+            unique: true,
+          },
           year: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -105,7 +110,6 @@ module.exports = {
       )
 
       // Income
-
       await queryInterface.createTable(
         'income_types',
         {
@@ -147,14 +151,6 @@ module.exports = {
           type: {
             type: Sequelize.ENUM('prefill', 'submit'),
             allowNull: false,
-          },
-          income_type_id: {
-            type: Sequelize.UUID,
-            allowNull: false,
-            references: {
-              model: 'income_types',
-              key: 'id',
-            },
           },
           tax_return_id: {
             type: Sequelize.UUID,
@@ -212,6 +208,20 @@ module.exports = {
 
   down: (queryInterface) => {
     return queryInterface.sequelize.transaction(async (t) => {
+      await queryInterface.sequelize.query(
+        `
+        ALTER TABLE debt
+        DROP CONSTRAINT debt_tax_return_id_fkey;
+        `,
+        { transaction: t },
+      )
+      await queryInterface.sequelize.query(
+        `
+        ALTER TABLE debt_lines
+        DROP CONSTRAINT debt_lines_creditor_id_fkey;
+        `,
+        { transaction: t },
+      )
       await queryInterface.dropTable('income_lines', { transaction: t })
       await queryInterface.dropTable('income', { transaction: t })
       await queryInterface.dropTable('tax_return', { transaction: t })
