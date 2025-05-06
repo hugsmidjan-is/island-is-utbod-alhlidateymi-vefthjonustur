@@ -17,6 +17,14 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
+          postal_code: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          city: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
         },
         {
           transaction: t,
@@ -26,7 +34,7 @@ module.exports = {
       await queryInterface.createTable(
         'th_people',
         {
-          nationalId: {
+          national_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             primaryKey: true,
@@ -35,10 +43,18 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
+          email: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
+          phonenumber: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
           type: {
             type: Sequelize.ENUM('person', 'legal_entity'),
           },
-          residence_id: {
+          address_id: {
             type: Sequelize.UUID,
             allowNull: false,
             references: {
@@ -64,7 +80,7 @@ module.exports = {
             allowNull: false,
             references: {
               model: 'th_people',
-              key: 'nationalId',
+              key: 'national_id',
             },
           },
           name: {

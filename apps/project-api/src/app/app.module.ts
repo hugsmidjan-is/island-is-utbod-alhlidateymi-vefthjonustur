@@ -13,7 +13,6 @@ import { NationalRegistryModule } from './modules/national-registry/national-reg
 
 @Module({
   imports: [
-    /*
     SequelizeModule.forRootAsync({
       imports: [
         DMRSequelizeConfigModule.register({
@@ -28,7 +27,6 @@ import { NationalRegistryModule } from './modules/national-registry/national-reg
         configService.createSequelizeOptions(),
       inject: [DMRSequelizeConfigService],
     }),
-    */
     NationalRegistryModule,
     TaxReturnModule,
   ],

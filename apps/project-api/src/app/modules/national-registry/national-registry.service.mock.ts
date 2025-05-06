@@ -10,7 +10,7 @@ const person: Person = {
   email: 'jokull.thordarson@email.is',
   phoneNumber: '7728391',
   address: {
-    streetAddress: 'Bláfjallagata 12',
+    address: 'Bláfjallagata 12',
     postalCode: '105',
     city: 'Reykjavík',
   },

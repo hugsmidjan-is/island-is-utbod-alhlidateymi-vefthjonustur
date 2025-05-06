@@ -5,9 +5,18 @@ import { MockNationalRegistryService } from './national-registry.service.mock'
 import { NationalRegistryService } from './national-registry.service'
 import { INationalRegistryService } from './national-registry.types'
 import { NationalRegistryController } from './national-registry.controller'
+import { NationalRegistryAddressModel } from './models/national-registry.address.model'
+import { SequelizeModule } from '@nestjs/sequelize'
+import { NationalRegistryPersonModel } from './models/national-registry.person.model'
 
 @Module({
-  imports: [LoggingModule],
+  imports: [
+    LoggingModule,
+    SequelizeModule.forFeature([
+      NationalRegistryAddressModel,
+      NationalRegistryPersonModel,
+    ]),
+  ],
   controllers: [NationalRegistryController],
   providers: [
     {
