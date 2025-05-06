@@ -14,6 +14,9 @@ import { TaxReturnIncomeLineModel } from './models/income/tax-return.income-line
 import { TaxReturnDebtLineModel } from './models/debt/tax-return.debt-line.model'
 import { TaxReturnDebtTypeModel } from './models/debt/tax-return.debt-type.model'
 import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
+import { TaxReturnPropertyLineModel } from './models/property/tax-return.property-line.model'
+import { TaxReturnPropertyTypeModel } from './models/property/tax-return.property-type.model'
+import { TaxReturnPropertyModel } from './models/property/tax-return.property.model'
 
 @Module({
   imports: [
@@ -26,6 +29,9 @@ import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
       TaxReturnDebtModel,
       TaxReturnDebtTypeModel,
       TaxReturnDebtLineModel,
+      TaxReturnPropertyModel,
+      TaxReturnPropertyTypeModel,
+      TaxReturnPropertyLineModel,
     ]),
   ],
   controllers: [TaxReturnController],

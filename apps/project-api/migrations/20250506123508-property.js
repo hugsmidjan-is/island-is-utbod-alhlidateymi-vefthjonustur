@@ -78,6 +78,10 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
+          identifier: {
+            type: Sequelize.STRING,
+            allowNull: false,
+          },
           value: {
             type: Sequelize.FLOAT,
             allowNull: false,

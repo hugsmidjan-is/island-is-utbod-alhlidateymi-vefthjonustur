@@ -15,6 +15,9 @@ import { TaxReturnDebtTypeModel } from './models/debt/tax-return.debt-type.model
 import { TaxReturnIncomeLineModel } from './models/income/tax-return.income-line.model'
 import { TaxReturnIncomeTypeModel } from './models/income/tax-return.income-type.model'
 import { TaxReturnIncomeModel } from './models/income/tax-return.income.model'
+import { TaxReturnPropertyModel } from './models/property/tax-return.property.model'
+import { TaxReturnPropertyLineModel } from './models/property/tax-return.property-line.model'
+import { TaxReturnPropertyTypeModel } from './models/property/tax-return.property-type.model'
 
 export class TaxReturnService implements ITaxReturnService {
   constructor(
@@ -25,7 +28,10 @@ export class TaxReturnService implements ITaxReturnService {
     private taxReturnIncomeModel: typeof TaxReturnIncomeModel,
     @InjectModel(TaxReturnDebtModel)
     private taxReturnDebtModel: typeof TaxReturnDebtModel,
+    @InjectModel(TaxReturnPropertyModel)
+    private taxReturnPropertyModel: typeof TaxReturnPropertyModel,
   ) {}
+
   async getTaxReturn(
     nationalId: string,
     year: string,
@@ -102,6 +108,36 @@ export class TaxReturnService implements ITaxReturnService {
 
     if (!result) {
       throw new NotFoundException(`debt prefill not found`)
+    }
+
+    return result
+  }
+
+  async getPropertyPrefill(
+    taxReturnId: string,
+  ): Promise<TaxReturnPropertyModel> {
+    this.logger.info('TaxReturnService.getPropertyPrefill for ' + taxReturnId)
+
+    let result
+    try {
+      result = await this.taxReturnPropertyModel.findOne({
+        where: { tax_return_id: taxReturnId, type: 'prefill' },
+        include: [
+          {
+            model: TaxReturnPropertyLineModel,
+            include: [TaxReturnPropertyTypeModel],
+          },
+        ],
+      })
+    } catch (e) {
+      this.logger.error('error fetching property prefill from database', {
+        error: e,
+      })
+      throw new InternalServerErrorException('unexpected error')
+    }
+
+    if (!result) {
+      throw new NotFoundException(`property prefill not found`)
     }
 
     return result

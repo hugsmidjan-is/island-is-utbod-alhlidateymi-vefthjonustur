@@ -28,6 +28,9 @@ import { TaxReturnIncomeModel } from './models/income/tax-return.income.model'
 import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
 import { TaxReturnDebt } from './dto/debt/tax-return.debt.dto'
 import { TaxReturnDebtLine } from './dto/debt/tax-return.debt-line.dto'
+import { TaxReturnPropertyModel } from './models/property/tax-return.property.model'
+import { TaxReturnProperty } from './dto/property/tax-return.property.dto'
+import { TaxReturnPropertyLine } from './dto/property/tax-return.property-line.dto'
 
 @Controller({
   version: '1',
@@ -40,6 +43,13 @@ export class TaxReturnController {
     @Inject(LOGGER_PROVIDER) private readonly logger: Logger,
   ) {}
 
+  /**
+   * Map income prefill from the database to the response DTO.
+   * Very simple mapping, but we need to do it to make sure the response is
+   * correct and to avoid exposing the database model.
+   * @param incomePrefill Model from the database
+   * @returns Dto for the response
+   */
   mapIncomePrefillToResponse(
     incomePrefill: TaxReturnIncomeModel,
   ): TaxReturnIncome {
@@ -64,6 +74,11 @@ export class TaxReturnController {
     return income
   }
 
+  /**
+   * Map debt prefill from the database to the response DTO.
+   * @param debtPrefill Model from the database
+   * @returns Dto for the response
+   */
   mapDebtPrefillToResponse(debtPrefill: TaxReturnDebtModel): TaxReturnDebt {
     const debt: TaxReturnDebt = {
       id: debtPrefill.id,
@@ -90,6 +105,29 @@ export class TaxReturnController {
     return debt
   }
 
+  mapPropertyPrefillToResponse(
+    propertyPrefill: TaxReturnPropertyModel,
+  ): TaxReturnProperty {
+    const property: TaxReturnProperty = {
+      id: propertyPrefill.id,
+      type: propertyPrefill.type,
+      propertyLines: propertyPrefill.propertyLines.map((line) => {
+        const mapped: TaxReturnPropertyLine = {
+          id: line.id,
+          label: line.label,
+          identifier: line.identifier,
+          value: line.value,
+          currency: line.currency,
+          propertyId: line.propertyId,
+          propertyTypeId: line.propertyTypeId,
+        }
+
+        return mapped
+      }),
+    }
+    return property
+  }
+
   @Get('/tax-return/prefill/:nationalId/:year')
   @ApiOperation({
     operationId: 'getTaxReturnPrefillByNationalIdAndYear',
@@ -112,11 +150,14 @@ If no prefill is found, returns 404.`,
     const { id } = taxReturn
     const incomePrefill = await this.TaxReturnService.getIncomePrefill(id)
     const debtPrefill = await this.TaxReturnService.getDebtPrefill(id)
+    const propertyPrefill = await this.TaxReturnService.getPropertyPrefill(id)
 
     const prefill: PersonPrefill = {
       nationalId: taxReturn.nationalId,
+      year: taxReturn.year,
       income: this.mapIncomePrefillToResponse(incomePrefill),
       debt: this.mapDebtPrefillToResponse(debtPrefill),
+      property: this.mapPropertyPrefillToResponse(propertyPrefill),
     }
 
     return {
