@@ -10,7 +10,7 @@ module.exports = {
         {
           id: taxReturnUUID,
           year: 2024,
-          person_id: 1203894569,
+          national_id: 1203894569,
           name: 'Jökull Þórðarson',
         },
       ])
