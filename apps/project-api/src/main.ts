@@ -19,9 +19,6 @@ async function bootstrap() {
     logger: WinstonModule.createLogger({ instance: logger }),
   })
 
-  // TODO make this behave with nest
-  // app.useLogger(logger)
-
   app.useGlobalPipes(ExceptionFactoryPipe())
   app.setGlobalPrefix(globalPrefix)
   app.enableVersioning({

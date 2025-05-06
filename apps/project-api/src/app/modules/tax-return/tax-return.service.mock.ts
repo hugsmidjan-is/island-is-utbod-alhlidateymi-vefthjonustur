@@ -1,7 +1,7 @@
 import { LOGGER_PROVIDER } from '@hxm/logging'
 import { Inject, NotFoundException } from '@nestjs/common'
 import { Logger } from 'winston'
-import { Result } from '../../types'
+import { Result } from '../../../types'
 import {
   GetPersonPrefillResponse,
   IncomeEmployment,

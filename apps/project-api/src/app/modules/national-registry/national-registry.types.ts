@@ -1,5 +1,5 @@
-import { Result } from '../../types'
-import { GetPersonResponse, Person } from './national-registry.dto'
+import { Result } from '../../../types'
+import { GetPersonResponse, Person } from './dto/national-registry.dto'
 
 export interface INationalRegistryService {
   // TODO nationalId should be from token

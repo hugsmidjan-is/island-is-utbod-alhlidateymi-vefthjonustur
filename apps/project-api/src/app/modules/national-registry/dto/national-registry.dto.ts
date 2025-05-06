@@ -1,4 +1,5 @@
 import { ApiProperty, ApiResponse } from '@nestjs/swagger'
+import { Length, IsString } from 'class-validator'
 
 export class Address {
   @ApiProperty({

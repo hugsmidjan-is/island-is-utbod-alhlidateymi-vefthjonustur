@@ -1,6 +1,18 @@
-# sí útboð 2025 verkefni
+# SÍ útboð, bakendi alhliðateymis
 
-Byggt á [dmr.ir repo](https://github.com/DMR-is/dmr.is).
+## Leiðarljós
+
+Nýtum það SÍ notar:
+
+- NX
+- Nest.js
+- PostgeSQL
+
+Fylgjum [API Design Guide](https://docs.devland.is/technical-overview/api-design-guide), sér í lagi:
+
+- [Naming Conventions](https://docs.devland.is/technical-overview/api-design-guide/naming-conventions)
+- [Pagination](https://docs.devland.is/technical-overview/api-design-guide/pagination)
+- Fleira? TODO
 
 ## `project-api`
 

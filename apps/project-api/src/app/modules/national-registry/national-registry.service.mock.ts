@@ -1,7 +1,7 @@
 import { NotFoundException } from '@nestjs/common'
-import { Result } from '../../types'
+import { Result } from '../../../types'
 import { INationalRegistryService } from './national-registry.types'
-import { GetPersonResponse, Person } from './national-registry.dto'
+import { GetPersonResponse, Person } from './dto/national-registry.dto'
 
 const person: Person = {
   name: 'Jökull Þórðarson',
@@ -17,6 +17,10 @@ const person: Person = {
 
 export class MockNationalRegistryService implements INationalRegistryService {
   async getPerson(nationalId: string): Promise<Result<GetPersonResponse>> {
+    if (nationalId === '0000000000') {
+      throw new Error('unexpected error')
+    }
+
     if (nationalId !== person.nationalId) {
       throw new NotFoundException(`Person not found`)
     }

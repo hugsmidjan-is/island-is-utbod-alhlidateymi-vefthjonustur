@@ -1,6 +1,6 @@
 import { ApiProperty, ApiResponse } from '@nestjs/swagger'
-import { PersonNotFound } from '../national-registry/national-registry.dto'
-import { Result } from '../../types'
+import { PersonNotFound } from '../national-registry/dto/national-registry.dto'
+import { Result } from '../../../types'
 
 export type LocalizedString = {
   en: string

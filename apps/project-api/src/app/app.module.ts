@@ -7,8 +7,9 @@ import { APP_INTERCEPTOR } from '@nestjs/core'
 import { SequelizeModule } from '@nestjs/sequelize'
 
 import { LOGGER_PROVIDER } from '@hxm/logging'
-import { NationalRegistryModule } from './national-registry/national-registry.module'
-import { TaxReturnModule } from './tax-return/tax-return.module'
+
+import { TaxReturnModule } from './modules/tax-return/tax-return.module'
+import { NationalRegistryModule } from './modules/national-registry/national-registry.module'
 
 @Module({
   imports: [
