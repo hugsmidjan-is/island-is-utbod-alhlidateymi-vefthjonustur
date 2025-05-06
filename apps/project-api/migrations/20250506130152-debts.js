@@ -46,14 +46,6 @@ module.exports = {
             type: Sequelize.ENUM('prefill', 'submit'),
             allowNull: false,
           },
-          debt_type_id: {
-            type: Sequelize.UUID,
-            allowNull: false,
-            references: {
-              model: 'debt_types',
-              key: 'id',
-            },
-          },
           tax_return_id: {
             type: Sequelize.UUID,
             references: {
@@ -98,7 +90,6 @@ module.exports = {
           },
           identifier: {
             type: Sequelize.STRING,
-            allowNull: false,
           },
           label: {
             type: Sequelize.STRING,
@@ -110,18 +101,15 @@ module.exports = {
           },
           interest_amount: {
             type: Sequelize.FLOAT,
-            allowNull: false,
           },
           annual_total_payment: {
             type: Sequelize.FLOAT,
-            allowNull: false,
           },
           annual_total_principal_payment: {
             type: Sequelize.FLOAT,
           },
           creditor_id: {
             type: Sequelize.STRING,
-            allowNull: false,
           },
           currency: {
             type: Sequelize.STRING,
