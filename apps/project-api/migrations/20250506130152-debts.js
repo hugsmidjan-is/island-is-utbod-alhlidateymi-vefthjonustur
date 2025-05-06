@@ -5,7 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.sequelize.transaction(async (t) => {
       await queryInterface.createTable(
-        'property_types',
+        'debt_types',
         {
           id: {
             type: Sequelize.UUID,
@@ -24,7 +24,7 @@ module.exports = {
       )
 
       await queryInterface.createTable(
-        'property',
+        'debt',
         {
           id: {
             type: Sequelize.UUID,
@@ -46,6 +46,14 @@ module.exports = {
             type: Sequelize.ENUM('prefill', 'submit'),
             allowNull: false,
           },
+          debt_type_id: {
+            type: Sequelize.UUID,
+            allowNull: false,
+            references: {
+              model: 'debt_types',
+              key: 'id',
+            },
+          },
           tax_return_id: {
             type: Sequelize.UUID,
             references: {
@@ -58,7 +66,7 @@ module.exports = {
       )
 
       await queryInterface.createTable(
-        'property_lines',
+        'debt_lines',
         {
           id: {
             type: Sequelize.UUID,
@@ -66,45 +74,70 @@ module.exports = {
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
           },
-          property_id: {
+          debt_id: {
             type: Sequelize.UUID,
             allowNull: false,
             references: {
-              model: 'property',
+              model: 'debt',
               key: 'id',
             },
+          },
+          debt_type_id: {
+            type: Sequelize.UUID,
+            allowNull: false,
+            references: {
+              model: 'debt_types',
+              key: 'id',
+            },
+          },
+          term: {
+            type: Sequelize.INTEGER,
+          },
+          origination_date: {
+            type: Sequelize.DATEONLY,
+          },
+          identifier: {
+            type: Sequelize.STRING,
+            allowNull: false,
           },
           label: {
             type: Sequelize.STRING,
             allowNull: false,
           },
-          value: {
+          outstanding_principal: {
             type: Sequelize.FLOAT,
+            allowNull: false,
+          },
+          interest_amount: {
+            type: Sequelize.FLOAT,
+            allowNull: false,
+          },
+          annual_total_payment: {
+            type: Sequelize.FLOAT,
+            allowNull: false,
+          },
+          annual_total_principal_payment: {
+            type: Sequelize.FLOAT,
+          },
+          creditor_id: {
+            type: Sequelize.STRING,
             allowNull: false,
           },
           currency: {
             type: Sequelize.STRING,
             defaultValue: 'ISK',
           },
-          property_type_id: {
-            type: Sequelize.UUID,
-            allowNull: false,
-            references: {
-              model: 'property_types',
-              key: 'id',
-            },
-          },
-          //TODO: should there be an optional reference to an address?
         },
         { transaction: t },
       )
     })
   },
-  down: (queryInterface) => {
+
+  async down(queryInterface, Sequelize) {
     return queryInterface.sequelize.transaction(async (t) => {
-      await queryInterface.dropTable('property_lines', { transaction: t })
-      await queryInterface.dropTable('property', { transaction: t })
-      await queryInterface.dropTable('property_types', { transaction: t })
+      await queryInterface.dropTable('debt_lines', { transaction: t })
+      await queryInterface.dropTable('debt', { transaction: t })
+      await queryInterface.dropTable('debt_types', { transaction: t })
     })
   },
 }
