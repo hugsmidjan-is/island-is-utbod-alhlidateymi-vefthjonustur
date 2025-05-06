@@ -4,8 +4,6 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     return queryInterface.sequelize.transaction(async (t) => {
-      // Properties
-
       await queryInterface.createTable(
         'property_types',
         {
@@ -48,38 +46,14 @@ module.exports = {
             type: Sequelize.ENUM('prefill', 'submit'),
             allowNull: false,
           },
-          property_type_id: {
+          tax_return_id: {
             type: Sequelize.UUID,
-            allowNull: false,
             references: {
-              model: 'property_types',
+              model: 'tax_return',
               key: 'id',
             },
           },
-          // year + person_id used as composite foreign key
-          year: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-          },
-          person_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-          },
         },
-        { transaction: t },
-      )
-
-      // Sequelize does not natively support composite foreign keys
-      // we use a query to add it
-      await queryInterface.sequelize.query(
-        `
-        ALTER TABLE property
-        ADD CONSTRAINT fk_property_tax_return
-        FOREIGN KEY (year, person_id)
-        REFERENCES tax_return (year, person_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE;
-        `,
         { transaction: t },
       )
 
@@ -100,14 +74,6 @@ module.exports = {
               key: 'id',
             },
           },
-          property_type_id: {
-            type: Sequelize.UUID,
-            allowNull: false,
-            references: {
-              model: 'property_types',
-              key: 'id',
-            },
-          },
           label: {
             type: Sequelize.STRING,
             allowNull: false,
@@ -120,6 +86,15 @@ module.exports = {
             type: Sequelize.STRING,
             defaultValue: 'ISK',
           },
+          property_type_id: {
+            type: Sequelize.UUID,
+            allowNull: false,
+            references: {
+              model: 'property_types',
+              key: 'id',
+            },
+          },
+          //TODO: should there be an optional reference to an address?
         },
         { transaction: t },
       )
