@@ -8,12 +8,17 @@ module.exports = {
   async up(queryInterface) {
     // eslint-disable-next-line no-console
     console.log(cwd())
-    const all = await readFile('./seeders/sql/national-registry.sql', 'utf8')
+    const nationalRegistry = await readFile(
+      './seeders/sql/national-registry.sql',
+      'utf8',
+    )
+    const taxReturn = await readFile('./seeders/sql/tax-return.sql', 'utf8')
 
     const seed = `
       BEGIN;
 
-      ${all}
+      ${nationalRegistry}
+      ${taxReturn}
 
       COMMIT;
       `

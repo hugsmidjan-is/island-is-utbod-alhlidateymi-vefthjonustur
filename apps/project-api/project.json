@@ -97,6 +97,13 @@
         "cwd": "apps/project-api"
       }
     },
+    "migrate/undo/all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "sequelize-cli db:migrate:undo:all",
+        "cwd": "apps/project-api"
+      }
+    },
     "seed": {
       "executor": "nx:run-commands",
       "options": {

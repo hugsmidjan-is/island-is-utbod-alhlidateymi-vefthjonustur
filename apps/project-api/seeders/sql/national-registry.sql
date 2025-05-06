@@ -27,5 +27,3 @@ VALUES
     'person',
     'a963b5d1-b450-4612-ab10-8db38c9cbf06'
   );
-
--- Tax Return Prefill data
