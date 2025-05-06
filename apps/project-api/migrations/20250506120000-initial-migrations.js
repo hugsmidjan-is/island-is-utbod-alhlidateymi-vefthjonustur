@@ -69,7 +69,6 @@ module.exports = {
       )
 
       // Tax return
-
       await queryInterface.createTable(
         'tax_return',
         {
@@ -127,7 +126,6 @@ module.exports = {
       // )
 
       // Income
-
       await queryInterface.createTable(
         'income_types',
         {
@@ -174,48 +172,16 @@ module.exports = {
             type: Sequelize.ENUM('prefill', 'submit'),
             allowNull: false,
           },
-          // income_type_id: {
-          //   type: Sequelize.UUID,
-          //   allowNull: false,
-          //   references: {
-          //     model: 'income_types',
-          //     key: 'id',
-          //   },
-          // },
           tax_return_id: {
             type: Sequelize.UUID,
-            allowNull: false,
             references: {
               model: 'tax_return',
               key: 'id',
             },
           },
-          // year + person_id used as composite foreign key
-          // year: {
-          //   type: Sequelize.INTEGER,
-          //   allowNull: false,
-          // },
-          // person_id: {
-          //   type: Sequelize.INTEGER,
-          //   allowNull: false,
-          // },
         },
         { transaction: t },
       )
-
-      // Sequelize does not natively support composite foreign keys
-      // we use a query to add it
-      // await queryInterface.sequelize.query(
-      //   `
-      //   ALTER TABLE income
-      //   ADD CONSTRAINT fk_income_tax_return
-      //   FOREIGN KEY (year, person_id)
-      //   REFERENCES tax_return (year, person_id)
-      //   ON UPDATE CASCADE
-      //   ON DELETE CASCADE;
-      //   `,
-      //   { transaction: t },
-      // )
 
       await queryInterface.createTable(
         'income_lines',
@@ -266,6 +232,20 @@ module.exports = {
 
   down: (queryInterface) => {
     return queryInterface.sequelize.transaction(async (t) => {
+      await queryInterface.sequelize.query(
+        `
+        ALTER TABLE IF EXISTS debt
+        DROP CONSTRAINT debt_tax_return_id_fkey;
+        `,
+        { transaction: t },
+      )
+      await queryInterface.sequelize.query(
+        `
+        ALTER TABLE IF EXISTS debt_lines
+        DROP CONSTRAINT debt_lines_creditor_id_fkey;
+        `,
+        { transaction: t },
+      )
       await queryInterface.dropTable('income_lines', { transaction: t })
       await queryInterface.dropTable('income', { transaction: t })
       await queryInterface.dropTable('tax_return', { transaction: t })
