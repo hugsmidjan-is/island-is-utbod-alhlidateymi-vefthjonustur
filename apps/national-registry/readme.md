@@ -10,10 +10,11 @@ yarn start national-registry
 
 ## Database
 
+We use the same docker container as in project api.
 Run the docker-compose file to start the database:
 
 ```bash
-docker compose -f apps/national-registry/docker-compose.yml up
+docker compose -f apps/project-api/docker-compose.yml up
 ```
 
 Uses Sequelize as the ORM, following commands are mapped to the nx workspace in `project.json`.
