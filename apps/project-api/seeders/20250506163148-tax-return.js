@@ -103,6 +103,11 @@ module.exports = {
       await queryInterface.bulkDelete('debt', null, { transaction: t })
       await queryInterface.bulkDelete('debt_types', null, { transaction: t })
 
+      // Delete rows from dependent tables first
+      await queryInterface.bulkDelete('income_lines', null, { transaction: t })
+      await queryInterface.bulkDelete('income', null, { transaction: t })
+      await queryInterface.bulkDelete('income_types', null, { transaction: t })
+
       // Finally, delete rows from the tax_return table
       await queryInterface.bulkDelete('tax_return', null, { transaction: t })
     })
