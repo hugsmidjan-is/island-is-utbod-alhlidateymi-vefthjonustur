@@ -14,7 +14,7 @@ export class TaxReturnModel extends Model {
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    field: 'national_id',
+    field: 'person_id',
   })
   nationalId!: string
 
