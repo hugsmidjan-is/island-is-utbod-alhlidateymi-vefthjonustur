@@ -8,7 +8,7 @@ export class Address {
     nullable: false,
     type: String,
   })
-  readonly streetAddress!: string
+  readonly address!: string
 
   @ApiProperty({
     description: 'Postal code',

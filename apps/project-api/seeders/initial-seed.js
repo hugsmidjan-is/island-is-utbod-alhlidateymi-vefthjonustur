@@ -8,7 +8,7 @@ module.exports = {
   async up(queryInterface) {
     // eslint-disable-next-line no-console
     console.log(cwd())
-    const all = await readFile('./seeders/sql/x.sql', 'utf8')
+    const all = await readFile('./seeders/sql/national-registry.sql', 'utf8')
 
     const seed = `
       BEGIN;
@@ -24,8 +24,7 @@ module.exports = {
   async down(queryInterface) {
     return await queryInterface.sequelize.query(`
       BEGIN;
-        -- RELATIONAL TABLES
-        DROP TABLE IF EXISTS FOO;
+        -- no op
       COMMIT;
     `)
   },

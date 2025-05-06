@@ -38,7 +38,15 @@ npx nx test project-api --coverage
 
 ### PostgreSQL
 
-TODO
+Sjá readme í project.
+
+Keyrum allt á einu migrate + einu seed uppá tíma.
+
+Til að nukea allt og setja upp aftur töflur + seed 💨:
+
+```bash
+yarn nx run project-api:migrate/undo && yarn nx run project-api:migrate && yarn nx run project-api:seed
+```
 
 ### Hýsing
 

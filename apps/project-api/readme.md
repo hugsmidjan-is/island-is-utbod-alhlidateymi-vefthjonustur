@@ -84,5 +84,5 @@ yarn nx run project-api:migrate/undo
 Run the following command to seed the database with initial data located in `apps/project-api/seeders`:
 
 ```bash
-yan nx run project-api:seed
+yarn nx run project-api:seed
 ```
