@@ -43,7 +43,7 @@ export class TaxReturnAdminController {
     )
   }
 
-  @Post('/admin/tax-return/:id')
+  @Post('/admin/tax-return/:nationalId')
   @ApiOperation({
     operationId: 'createTaxReturn',
     summary: 'Create a tax return for a person',
@@ -70,8 +70,8 @@ export class TaxReturnAdminController {
   @ApiResponse({ status: 400, type: BadRequestResponse })
   @ApiResponse({ status: 404, type: NotFoundResponse })
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
-  async getTaxReturn(@Param('nationalId', NationalIdPipe) nationalId: string) {
-    this.logger.info('TaxReturnController.getTaxReturn' + nationalId)
+  async getTaxReturn(@Param('id', IsStringValidationPipe) id: string) {
+    this.logger.info('TaxReturnController.getTaxReturn' + id)
     throw new InternalServerErrorException('Tax return get not implemented yet')
   }
 
