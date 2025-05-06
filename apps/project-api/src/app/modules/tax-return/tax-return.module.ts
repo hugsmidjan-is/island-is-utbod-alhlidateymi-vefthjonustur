@@ -7,10 +7,13 @@ import { TaxReturnController } from './tax-return.controller'
 import { MockTaxReturnService } from './tax-return.service.mock'
 import { TaxReturnService } from './tax-return.service'
 import { SequelizeModule } from '@nestjs/sequelize'
-import { TaxReturnIncomeModel } from './models/tax-return.income.model'
+import { TaxReturnIncomeModel } from './models/income/tax-return.income.model'
 import { TaxReturnModel } from './models/tax-return.tax-return.model'
-import { TaxReturnIncomeTypeModel } from './models/tax-return.income-type.model'
-import { TaxReturnIncomeLineModel } from './models/tax-return.income-line.model'
+import { TaxReturnIncomeTypeModel } from './models/income/tax-return.income-type.model'
+import { TaxReturnIncomeLineModel } from './models/income/tax-return.income-line.model'
+import { TaxReturnDebtLineModel } from './models/debt/tax-return.debt-line.model'
+import { TaxReturnDebtTypeModel } from './models/debt/tax-return.debt-type.model'
+import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
 
 @Module({
   imports: [
@@ -20,6 +23,9 @@ import { TaxReturnIncomeLineModel } from './models/tax-return.income-line.model'
       TaxReturnIncomeModel,
       TaxReturnIncomeTypeModel,
       TaxReturnIncomeLineModel,
+      TaxReturnDebtModel,
+      TaxReturnDebtTypeModel,
+      TaxReturnDebtLineModel,
     ]),
   ],
   controllers: [TaxReturnController],

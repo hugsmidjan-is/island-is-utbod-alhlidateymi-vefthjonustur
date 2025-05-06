@@ -6,9 +6,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript'
-import { TaxReturnIncomeTypeModel } from './tax-return.income-type.model'
-import { TaxReturnModel } from './tax-return.tax-return.model'
-import { TaxReturnIncomeLine } from '../dto/tax-return.income-line.dto'
+import { TaxReturnModel } from '../tax-return.tax-return.model'
 import { TaxReturnIncomeLineModel } from './tax-return.income-line.model'
 
 @Table({

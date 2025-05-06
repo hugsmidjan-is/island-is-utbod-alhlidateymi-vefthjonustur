@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { TaxReturnIncomeLine } from './tax-return.income-line.dto'
-import { Type } from 'class-transformer'
 
 enum TaxReturnIncomeType {
   PREFILL = 'prefill',

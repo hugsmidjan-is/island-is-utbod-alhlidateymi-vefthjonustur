@@ -5,15 +5,16 @@ const { v4: uuidv4 } = require('uuid')
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction(async (t) => {
-      const taxReturnUUID = uuidv4()
-      await queryInterface.bulkInsert('tax_return', [
-        {
-          id: taxReturnUUID,
-          year: 2024,
-          national_id: 1203894569,
-          name: 'Jökull Þórðarson',
-        },
-      ])
+      const taxReturnUUID = 'bd5ade8e-cb7f-427d-935c-e09d0407b9bd'
+      // Already seeded in initial seed
+      // await queryInterface.bulkInsert('tax_return', [
+      //   {
+      //     id: taxReturnUUID,
+      //     year: 2024,
+      //     national_id: 1203894569,
+      //     name: 'Jökull Þórðarson',
+      //   },
+      // ])
 
       const propertyDebtTypeUUID = uuidv4()
       const generalDebtTypeUUID = uuidv4()
