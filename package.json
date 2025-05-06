@@ -158,6 +158,7 @@
     "node-fetch": "2.6.7",
     "nodemailer": "^6.10.0",
     "oidc-client-ts": "2.0.3",
+    "pg": "^8.15.6",
     "react": "^18.3.1",
     "react-animate-height": "^3.1.2",
     "react-datepicker": "^4.10.0",
