@@ -68,7 +68,9 @@ module.exports = {
         },
       )
 
-      queryInterface.createTable(
+      // Tax return
+
+      await queryInterface.createTable(
         'tax_return',
         {
           year: {
@@ -90,9 +92,19 @@ module.exports = {
         },
         {
           transaction: t,
-          primaryKeys: ['year', 'person_id'],
         },
       )
+
+      // Add the composite primary key using raw SQL
+      await queryInterface.sequelize.query(
+        `
+        ALTER TABLE tax_return
+        ADD CONSTRAINT pk_tax_return PRIMARY KEY (year, person_id);
+        `,
+        { transaction: t },
+      )
+
+      // Income
 
       await queryInterface.createTable(
         'income_types',
@@ -144,15 +156,30 @@ module.exports = {
               key: 'id',
             },
           },
-          payer: {
-            type: Sequelize.STRING, // TODO: setja upp sér töflu og vensla?
+          // year + person_id used as composite foreign key
+          year: {
+            type: Sequelize.INTEGER,
             allowNull: false,
           },
-          value: {
-            type: Sequelize.FLOAT,
+          person_id: {
+            type: Sequelize.INTEGER,
             allowNull: false,
           },
         },
+        { transaction: t },
+      )
+
+      // Sequelize does not natively support composite foreign keys
+      // we use a query to add it
+      await queryInterface.sequelize.query(
+        `
+        ALTER TABLE income
+        ADD CONSTRAINT fk_income_tax_return
+        FOREIGN KEY (year, person_id)
+        REFERENCES tax_return (year, person_id)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE;
+        `,
         { transaction: t },
       )
 
@@ -184,7 +211,7 @@ module.exports = {
           label: {
             type: Sequelize.STRING,
             allowNull: false,
-          },
+          }, // TODO: can also add a payer with reference to th_person
           value: {
             type: Sequelize.FLOAT,
             allowNull: false,
@@ -201,11 +228,11 @@ module.exports = {
 
   down: (queryInterface) => {
     return queryInterface.sequelize.transaction(async (t) => {
+      await queryInterface.dropTable('income_lines', { transaction: t })
+      await queryInterface.dropTable('income', { transaction: t })
       await queryInterface.dropTable('tax_return', { transaction: t })
       await queryInterface.dropTable('th_people', { transaction: t })
       await queryInterface.dropTable('th_address', { transaction: t })
-      await queryInterface.dropTable('income_lines', { transaction: t })
-      await queryInterface.dropTable('income', { transaction: t })
       await queryInterface.dropTable('income_types', { transaction: t })
     })
   },
