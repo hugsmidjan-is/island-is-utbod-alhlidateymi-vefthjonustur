@@ -120,12 +120,8 @@ module.exports = {
             type: Sequelize.FLOAT,
           },
           creditor_id: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
             allowNull: false,
-            references: {
-              model: 'th_people',
-              key: 'national_id',
-            },
           },
           currency: {
             type: Sequelize.STRING,
