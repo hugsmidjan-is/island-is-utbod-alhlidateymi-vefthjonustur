@@ -105,9 +105,6 @@ module.exports = {
 
       // Finally, delete rows from the tax_return table
       await queryInterface.bulkDelete('tax_return', null, { transaction: t })
-
-      await queryInterface.bulkDelete('th_people', null, { transaction: t })
-      await queryInterface.bulkDelete('th_address', null, { transaction: t })
     })
   },
 }

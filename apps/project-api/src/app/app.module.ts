@@ -9,7 +9,6 @@ import { SequelizeModule } from '@nestjs/sequelize'
 import { LOGGER_PROVIDER } from '@hxm/logging'
 
 import { TaxReturnModule } from './modules/tax-return/tax-return.module'
-import { NationalRegistryModule } from './modules/national-registry/national-registry.module'
 
 @Module({
   imports: [
@@ -27,7 +26,6 @@ import { NationalRegistryModule } from './modules/national-registry/national-reg
         configService.createSequelizeOptions(),
       inject: [DMRSequelizeConfigService],
     }),
-    NationalRegistryModule,
     TaxReturnModule,
   ],
   providers: [
