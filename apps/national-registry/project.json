@@ -119,7 +119,6 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "yarn nx run national-registry:dev-services",
           "yarn nx run national-registry:migrate",
           "yarn nx run national-registry:seed"
         ],
