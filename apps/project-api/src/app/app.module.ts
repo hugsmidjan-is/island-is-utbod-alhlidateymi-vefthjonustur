@@ -1,14 +1,12 @@
 import { DMRSequelizeConfigModule, DMRSequelizeConfigService } from '@hxm/db'
-// import { HealthModule } from '@hxm/modules'
 import { LoggingInterceptor } from '@hxm/shared/interceptors'
 
 import { Module } from '@nestjs/common'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { SequelizeModule } from '@nestjs/sequelize'
 
-import { LOGGER_PROVIDER } from '@hxm/logging'
-
 import { TaxReturnModule } from './modules/tax-return/tax-return.module'
+import { TaxReturnAdminModule } from './modules/tax-return-admin/tax-return-admin.module'
 
 @Module({
   imports: [
@@ -27,6 +25,7 @@ import { TaxReturnModule } from './modules/tax-return/tax-return.module'
       inject: [DMRSequelizeConfigService],
     }),
     TaxReturnModule,
+    TaxReturnAdminModule,
   ],
   providers: [
     {
