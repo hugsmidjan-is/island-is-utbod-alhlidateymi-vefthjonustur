@@ -15,7 +15,7 @@ import { NationalRegistryModule } from './modules/national-registry/national-reg
     SequelizeModule.forRootAsync({
       imports: [
         DMRSequelizeConfigModule.register({
-          database: process.env.DB_NAME || 'dev_project_api',
+          database: process.env.DB_NAME || 'dev_national_registry',
           host: process.env.DB_HOST || 'localhost',
           password: process.env.DB_PASS || 'dev_db',
           username: process.env.DB_USER || 'dev_db',
