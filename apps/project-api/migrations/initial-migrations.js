@@ -156,30 +156,14 @@ module.exports = {
               key: 'id',
             },
           },
-          // year + person_id used as composite foreign key
-          year: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-          },
-          person_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
+          tax_return_id: {
+            type: Sequelize.UUID,
+            references: {
+              model: 'tax_return',
+              key: 'id',
+            },
           },
         },
-        { transaction: t },
-      )
-
-      // Sequelize does not natively support composite foreign keys
-      // we use a query to add it
-      await queryInterface.sequelize.query(
-        `
-        ALTER TABLE income
-        ADD CONSTRAINT fk_income_tax_return
-        FOREIGN KEY (year, person_id)
-        REFERENCES tax_return (year, person_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE;
-        `,
         { transaction: t },
       )
 
