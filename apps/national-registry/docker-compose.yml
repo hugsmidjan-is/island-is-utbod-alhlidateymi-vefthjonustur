@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db_national_registry:
+    image: public.ecr.aws/docker/library/postgres:16
+    container_name: db_national_registry
+    environment:
+      - POSTGRES_DB=dev_national_registry
+      - POSTGRES_USER=dev_db
+      - POSTGRES_PASSWORD=dev_db
+    ports:
+      - '5434:5432'
