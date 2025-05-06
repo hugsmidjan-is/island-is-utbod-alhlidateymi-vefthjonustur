@@ -1,12 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger'
 
+export class BadRequestValidationError {
+  @ApiProperty({
+    description: 'Property that caused the error',
+    required: true,
+    type: String,
+  })
+  readonly property!: string
+
+  @ApiProperty({
+    description: 'Error message',
+    required: true,
+  })
+  readonly constraints!: Record<string, string>
+}
+
 export class BadRequestResponse {
   @ApiProperty({
     description: 'Message describing the error',
     required: true,
     type: String,
   })
-  readonly message!: string
+  readonly message!: string | BadRequestValidationError[]
 
   @ApiProperty({
     description: 'Error description',

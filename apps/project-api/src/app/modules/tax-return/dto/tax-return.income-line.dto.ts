@@ -1,13 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { TaxReturnIncomeType } from './tax-return.income-type.dto'
+import { IsInt, IsOptional, Min, MinLength } from 'class-validator'
 
 export class TaxReturnIncomeLine {
   @ApiProperty({
     description: 'ID of the income return line',
-    required: true,
     nullable: false,
     type: String,
   })
+  @IsOptional()
   id!: string
 
   @ApiProperty({
@@ -25,6 +26,9 @@ export class TaxReturnIncomeLine {
     nullable: false,
     type: String,
   })
+  @MinLength(1, {
+    message: 'Label must be at least 1 character long',
+  })
   label!: string
 
   @ApiProperty({
@@ -33,6 +37,7 @@ export class TaxReturnIncomeLine {
     nullable: true,
     type: String,
   })
+  @IsOptional()
   payer?: string
 
   @ApiProperty({
@@ -40,6 +45,10 @@ export class TaxReturnIncomeLine {
     required: true,
     nullable: false,
     type: Number,
+  })
+  @IsInt({ message: 'Value must be a positive integer' })
+  @Min(1, {
+    message: 'Value must be a positive integer',
   })
   value!: number
 }

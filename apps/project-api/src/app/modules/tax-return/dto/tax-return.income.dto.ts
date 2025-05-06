@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { TaxReturnIncomeLine } from './tax-return.income-line.dto'
+import { Type } from 'class-transformer'
 
 enum TaxReturnIncomeType {
   PREFILL = 'prefill',
@@ -25,14 +26,12 @@ export class TaxReturnIncome {
   })
   type!: 'prefill' | 'submit'
 
-  // @ApiProperty({
-  //   description:
-  //     'Income type of the income return, references the income type list.',
-  //   required: true,
-  //   nullable: false,
-  //   type: TaxReturnIncomeType,
-  // })
-  // incomeType!: TaxReturnIncomeType
-
+  @ApiProperty({
+    required: true,
+    description: 'Income lines',
+    nullable: false,
+    isArray: true,
+    type: () => TaxReturnIncomeLine,
+  })
   incomeLines!: TaxReturnIncomeLine[]
 }
