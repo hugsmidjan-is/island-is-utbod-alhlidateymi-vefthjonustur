@@ -14,7 +14,7 @@ import {
   BadRequestResponse,
   InternalServerErrorResponse,
   NotFoundResponse,
-} from 'apps/project-api/src/types/responses'
+} from 'apps/national-registry/src/types/responses'
 
 @Controller({
   version: '1',
