@@ -14,6 +14,11 @@ Fylgjum [API Design Guide](https://docs.devland.is/technical-overview/api-design
 - [Pagination](https://docs.devland.is/technical-overview/api-design-guide/pagination)
 - Fleira? TODO
 
+## Hlutir sem mættu betur fara
+
+- nationalId should be from token
+- nationaId in GET can leak PII
+
 ## `project-api`
 
 Keyra
