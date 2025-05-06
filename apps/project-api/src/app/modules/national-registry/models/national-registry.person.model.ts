@@ -7,7 +7,7 @@ import { NationalRegistryAddressModel } from './national-registry.address.model'
 })
 export class NationalRegistryPersonModel extends Model {
   @Column({
-    type: DataType.UUID,
+    type: DataType.STRING,
     primaryKey: true,
     allowNull: false,
     field: 'national_id',
