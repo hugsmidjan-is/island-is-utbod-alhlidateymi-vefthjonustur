@@ -171,8 +171,12 @@ If no prefill is found, returns 404.`,
   @ApiResponse({ status: 400, type: BadRequestResponse })
   @ApiResponse({ status: 404, type: NotFoundResponse })
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
-  async taxReturnSubmit(@Body() body: SubmitTaxReturnBody) {
-    this.logger.info('TaxReturnController.taxReturnSubmit', body)
+  async taxReturnSubmit(
+    @Param('nationalId', NationalIdPipe) nationalId: string,
+    @Param('year', IsStringValidationPipe) year: string,
+    @Body() body: SubmitTaxReturnBody,
+  ) {
+    this.logger.info('TaxReturnController.taxReturnSubmit' + nationalId)
     throw new InternalServerErrorException(
       'Tax return submit not implemented yet',
     )
