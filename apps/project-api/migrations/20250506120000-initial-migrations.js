@@ -73,11 +73,27 @@ module.exports = {
       await queryInterface.createTable(
         'tax_return',
         {
+          id: {
+            type: Sequelize.UUID,
+            primaryKey: true,
+            allowNull: false,
+            defaultValue: Sequelize.UUIDV4,
+          },
+          created: {
+            type: 'TIMESTAMP WITH TIME ZONE',
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            allowNull: false,
+          },
+          modified: {
+            type: 'TIMESTAMP WITH TIME ZONE',
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            allowNull: false,
+          },
           year: {
             type: Sequelize.INTEGER,
             allowNull: false,
           },
-          person_id: {
+          national_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             references: {
@@ -91,18 +107,24 @@ module.exports = {
           },
         },
         {
+          indexes: [
+            {
+              unique: true,
+              fields: ['year', 'national_id'],
+            },
+          ],
           transaction: t,
         },
       )
 
       // Add the composite primary key using raw SQL
-      await queryInterface.sequelize.query(
-        `
-        ALTER TABLE tax_return
-        ADD CONSTRAINT pk_tax_return PRIMARY KEY (year, person_id);
-        `,
-        { transaction: t },
-      )
+      // await queryInterface.sequelize.query(
+      //   `
+      //   ALTER TABLE tax_return
+      //   ADD CONSTRAINT pk_tax_return PRIMARY KEY (year, person_id);
+      //   `,
+      //   { transaction: t },
+      // )
 
       // Income
 
@@ -114,6 +136,10 @@ module.exports = {
             primaryKey: true,
             allowNull: false,
             defaultValue: Sequelize.UUIDV4,
+          },
+          code: {
+            type: Sequelize.STRING,
+            allowNull: false,
           },
           name: {
             type: Sequelize.STRING,
@@ -148,40 +174,48 @@ module.exports = {
             type: Sequelize.ENUM('prefill', 'submit'),
             allowNull: false,
           },
-          income_type_id: {
+          // income_type_id: {
+          //   type: Sequelize.UUID,
+          //   allowNull: false,
+          //   references: {
+          //     model: 'income_types',
+          //     key: 'id',
+          //   },
+          // },
+          tax_return_id: {
             type: Sequelize.UUID,
             allowNull: false,
             references: {
-              model: 'income_types',
+              model: 'tax_return',
               key: 'id',
             },
           },
           // year + person_id used as composite foreign key
-          year: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-          },
-          person_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-          },
+          // year: {
+          //   type: Sequelize.INTEGER,
+          //   allowNull: false,
+          // },
+          // person_id: {
+          //   type: Sequelize.INTEGER,
+          //   allowNull: false,
+          // },
         },
         { transaction: t },
       )
 
       // Sequelize does not natively support composite foreign keys
       // we use a query to add it
-      await queryInterface.sequelize.query(
-        `
-        ALTER TABLE income
-        ADD CONSTRAINT fk_income_tax_return
-        FOREIGN KEY (year, person_id)
-        REFERENCES tax_return (year, person_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE;
-        `,
-        { transaction: t },
-      )
+      // await queryInterface.sequelize.query(
+      //   `
+      //   ALTER TABLE income
+      //   ADD CONSTRAINT fk_income_tax_return
+      //   FOREIGN KEY (year, person_id)
+      //   REFERENCES tax_return (year, person_id)
+      //   ON UPDATE CASCADE
+      //   ON DELETE CASCADE;
+      //   `,
+      //   { transaction: t },
+      // )
 
       await queryInterface.createTable(
         'income_lines',
@@ -189,7 +223,6 @@ module.exports = {
           id: {
             type: Sequelize.UUID,
             primaryKey: true,
-            allowNull: false,
             defaultValue: Sequelize.UUIDV4,
           },
           income_id: {
@@ -211,7 +244,12 @@ module.exports = {
           label: {
             type: Sequelize.STRING,
             allowNull: false,
-          }, // TODO: can also add a payer with reference to th_person
+          },
+          payer: {
+            type: Sequelize.STRING,
+            allowNull: true,
+            defaultValue: null,
+          },
           value: {
             type: Sequelize.FLOAT,
             allowNull: false,

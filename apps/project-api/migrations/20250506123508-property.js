@@ -71,17 +71,17 @@ module.exports = {
 
       // Sequelize does not natively support composite foreign keys
       // we use a query to add it
-      await queryInterface.sequelize.query(
-        `
-        ALTER TABLE property
-        ADD CONSTRAINT fk_property_tax_return
-        FOREIGN KEY (year, person_id)
-        REFERENCES tax_return (year, person_id)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE;
-        `,
-        { transaction: t },
-      )
+      // await queryInterface.sequelize.query(
+      //   `
+      //   ALTER TABLE property
+      //   ADD CONSTRAINT fk_property_tax_return
+      //   FOREIGN KEY (year, person_id)
+      //   REFERENCES tax_return (year, person_id)
+      //   ON UPDATE CASCADE
+      //   ON DELETE CASCADE;
+      //   `,
+      //   { transaction: t },
+      // )
 
       await queryInterface.createTable(
         'property_lines',
