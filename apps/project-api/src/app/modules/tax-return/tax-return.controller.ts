@@ -21,9 +21,13 @@ import {
   PostPersonSubmitResponse,
 } from './dto/tax-return.response.dto'
 import { PersonPrefill } from './dto/tax-return.person-prefill.dto'
-import { TaxReturnIncome } from './dto/tax-return.income.dto'
-import { TaxReturnIncomeLine } from './dto/tax-return.income-line.dto'
+import { TaxReturnIncome } from './dto/income/tax-return.income.dto'
+import { TaxReturnIncomeLine } from './dto/income/tax-return.income-line.dto'
 import { SubmitTaxReturnBody } from './dto/tax-return.submit-body.dto'
+import { TaxReturnIncomeModel } from './models/income/tax-return.income.model'
+import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
+import { TaxReturnDebt } from './dto/debt/tax-return.debt.dto'
+import { TaxReturnDebtLine } from './dto/debt/tax-return.debt-line.dto'
 
 @Controller({
   version: '1',
@@ -35,6 +39,56 @@ export class TaxReturnController {
     private readonly TaxReturnService: ITaxReturnService,
     @Inject(LOGGER_PROVIDER) private readonly logger: Logger,
   ) {}
+
+  mapIncomePrefillToResponse(
+    incomePrefill: TaxReturnIncomeModel,
+  ): TaxReturnIncome {
+    const income: TaxReturnIncome = {
+      id: incomePrefill.id,
+      type: incomePrefill.type,
+      incomeLines: incomePrefill.incomeLines.map((line) => {
+        const mapped: TaxReturnIncomeLine = {
+          id: line.id,
+          incomeType: line.incomeType,
+          label: line.label,
+          value: line.value,
+        }
+
+        if (line.payer) {
+          mapped.payer = line.payer
+        }
+
+        return mapped
+      }),
+    }
+    return income
+  }
+
+  mapDebtPrefillToResponse(debtPrefill: TaxReturnDebtModel): TaxReturnDebt {
+    const debt: TaxReturnDebt = {
+      id: debtPrefill.id,
+      type: debtPrefill.type,
+      debtLines: debtPrefill.debtLines.map((line) => {
+        const mapped: TaxReturnDebtLine = {
+          id: line.id,
+          debtType: line.debtType,
+          label: line.label,
+          outstandingPrincipal: line.outstandingPrincipal,
+          originationDate: line.originationDate,
+          identifier: line.identifier,
+          term: line.term,
+          interestAmount: line.interestAmount,
+          annualTotalPayment: line.annualTotalPayment,
+          annualTotalPrincipalPayment: line.annualTotalPrincipalPayment,
+          creditorId: line.creditorId,
+          currency: line.currency,
+        }
+
+        return mapped
+      }),
+    }
+    return debt
+  }
 
   @Get('/tax-return/prefill/:nationalId/:year')
   @ApiOperation({
@@ -55,32 +109,14 @@ If no prefill is found, returns 404.`,
     @Param('year', IsStringValidationPipe) year: string,
   ): Promise<GetPersonPrefillResponse> {
     const taxReturn = await this.TaxReturnService.getTaxReturn(nationalId, year)
+    const { id } = taxReturn
+    const incomePrefill = await this.TaxReturnService.getIncomePrefill(id)
+    const debtPrefill = await this.TaxReturnService.getDebtPrefill(id)
 
-    const incomePrefill = await this.TaxReturnService.getIncomePrefill(
-      taxReturn.id,
-    )
-
-    const income: TaxReturnIncome = {
-      id: incomePrefill.id,
-      type: incomePrefill.type,
-      incomeLines: incomePrefill.incomeLines.map((line) => {
-        const mapped: TaxReturnIncomeLine = {
-          id: line.id,
-          incomeType: line.incomeType,
-          label: line.label,
-          value: line.value,
-        }
-
-        if (line.payer) {
-          mapped.payer = line.payer
-        }
-
-        return mapped
-      }),
-    }
     const prefill: PersonPrefill = {
       nationalId: taxReturn.nationalId,
-      income,
+      income: this.mapIncomePrefillToResponse(incomePrefill),
+      debt: this.mapDebtPrefillToResponse(debtPrefill),
     }
 
     return {

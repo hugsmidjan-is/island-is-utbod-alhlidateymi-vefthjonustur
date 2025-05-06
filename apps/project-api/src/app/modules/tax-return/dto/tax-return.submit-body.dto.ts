@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { ArrayMinSize, MinLength, ValidateNested } from 'class-validator'
-import { TaxReturnIncomeLine } from './tax-return.income-line.dto'
+import { TaxReturnIncomeLine } from './income/tax-return.income-line.dto'
 
 export class SubmitTaxReturnBody {
   @ApiProperty({

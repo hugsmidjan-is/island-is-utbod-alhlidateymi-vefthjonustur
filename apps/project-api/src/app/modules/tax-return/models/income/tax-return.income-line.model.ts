@@ -1,6 +1,6 @@
 import { BelongsTo, Column, DataType, Model, Table } from 'sequelize-typescript'
 import { TaxReturnIncomeTypeModel } from './tax-return.income-type.model'
-import { TaxReturnModel } from './tax-return.tax-return.model'
+import { TaxReturnModel } from '../tax-return.tax-return.model'
 import { TaxReturnIncomeModel } from './tax-return.income.model'
 
 @Table({

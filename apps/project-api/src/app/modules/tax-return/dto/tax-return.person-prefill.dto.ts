@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { TaxReturnIncome } from './tax-return.income.dto'
+import { TaxReturnIncome } from './income/tax-return.income.dto'
+import { TaxReturnDebt } from './debt/tax-return.debt.dto'
 
 export class PersonPrefill {
   @ApiProperty({
@@ -18,4 +19,12 @@ export class PersonPrefill {
     type: TaxReturnIncome,
   })
   income!: TaxReturnIncome
+
+  @ApiProperty({
+    description: 'Debt part of the tax return prefill',
+    required: true,
+    nullable: false,
+    type: TaxReturnDebt,
+  })
+  debt!: TaxReturnDebt
 }
