@@ -2,6 +2,7 @@
   "version": 2,
   "installCommand": "yarn install",
   "buildCommand": "npx nx build project-api --prod",
+  "relatedProjects:": ["dmr-logging"],
   "builds": [
     {
       "src": "apps/project-api/src/main.ts",
