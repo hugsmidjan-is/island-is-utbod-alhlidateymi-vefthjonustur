@@ -39,6 +39,13 @@ export class TaxReturnDebtLineModel extends Model {
   originationDate?: Date
 
   @Column({
+    type: DataType.FLOAT,
+    allowNull: true,
+    field: 'ratio',
+  })
+  ratio?: number
+
+  @Column({
     type: DataType.STRING,
     allowNull: true,
     field: 'identifier',

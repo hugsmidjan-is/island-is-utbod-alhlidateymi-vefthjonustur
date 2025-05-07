@@ -53,6 +53,13 @@ export class TaxReturnDebtLine {
   originationDate?: string
 
   @ApiProperty({
+    description: 'Optional ratio of the debt return line',
+    type: Number,
+  })
+  @IsOptional()
+  ratio?: number
+
+  @ApiProperty({
     description: 'Optional identifier of the debt return line',
     type: String,
   })

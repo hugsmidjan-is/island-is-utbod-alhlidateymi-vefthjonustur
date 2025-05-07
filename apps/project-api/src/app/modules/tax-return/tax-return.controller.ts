@@ -101,6 +101,7 @@ export class TaxReturnController {
           creditorName: line.creditorName,
           writeDown: line.writeDown,
           currency: line.currency,
+          ratio: line.ratio,
         }
 
         return mapped

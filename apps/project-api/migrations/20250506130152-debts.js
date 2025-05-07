@@ -88,6 +88,9 @@ module.exports = {
           origination_date: {
             type: Sequelize.DATEONLY,
           },
+          ratio: {
+            type: Sequelize.FLOAT,
+          },
           identifier: {
             type: Sequelize.STRING,
           },
