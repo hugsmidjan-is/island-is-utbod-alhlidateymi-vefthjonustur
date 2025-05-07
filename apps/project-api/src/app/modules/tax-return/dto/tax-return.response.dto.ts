@@ -18,3 +18,33 @@ export class PostPersonSubmitResponse {
   })
   readonly submit!: PersonPrefill
 }
+
+export class TaxReturnCreate {
+  @ApiProperty({
+    description: 'National ID of the person',
+    required: true,
+    type: String,
+  })
+  nationalId!: string
+
+  @ApiProperty({
+    description: 'Year of the tax return',
+    required: true,
+    type: Number,
+  })
+  year!: number
+
+  @ApiProperty({
+    description: 'ID of the tax return',
+    required: true,
+    type: String,
+  })
+  id!: string
+
+  @ApiProperty({
+    description: 'Timestamp of the tax return',
+    required: true,
+    type: Date,
+  })
+  timestamp!: Date
+}

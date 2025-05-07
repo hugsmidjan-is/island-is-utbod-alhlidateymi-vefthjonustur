@@ -1,15 +1,13 @@
 'use strict'
 
-const { v4: uuidv4 } = require('uuid')
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.sequelize.transaction(async (t) => {
       const taxReturnUUID = 'bd5ade8e-cb7f-427d-935c-e09d0407b9bd'
 
-      const propertyTypeUUID = uuidv4()
-      const vehicleTypeUUID = uuidv4()
+      const propertyTypeUUID = '89a1e794-f7bf-4ef9-aaaa-000000000000'
+      const vehicleTypeUUID = '89a1e794-f7bf-4ef9-bbbb-000000000000'
       await queryInterface.bulkInsert(
         'property_types',
         [
@@ -25,7 +23,7 @@ module.exports = {
         { transaction: t },
       )
 
-      const prefillPropertyUUID = uuidv4()
+      const prefillPropertyUUID = '89a1e794-f7bf-4ef9-cccc-000000000000'
       await queryInterface.bulkInsert(
         'property',
         [
@@ -42,7 +40,7 @@ module.exports = {
         'property_lines',
         [
           {
-            id: uuidv4(),
+            id: '89a1e794-f7bf-4ef9-bbbb-000000000111',
             property_id: prefillPropertyUUID,
             property_type_id: propertyTypeUUID,
             label: 'Bláfjallagata 12',
@@ -51,7 +49,7 @@ module.exports = {
             currency: 'ISK',
           },
           {
-            id: uuidv4(),
+            id: '89a1e794-f7bf-4ef9-bbbb-000000000222',
             property_id: prefillPropertyUUID,
             property_type_id: vehicleTypeUUID,
             label: '2021',
@@ -60,7 +58,7 @@ module.exports = {
             currency: 'ISK',
           },
           {
-            id: uuidv4(),
+            id: '89a1e794-f7bf-4ef9-bbbb-000000000333',
             property_id: prefillPropertyUUID,
             property_type_id: vehicleTypeUUID,
             label: '2012',

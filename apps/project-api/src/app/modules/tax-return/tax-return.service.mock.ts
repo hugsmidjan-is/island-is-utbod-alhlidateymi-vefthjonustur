@@ -8,9 +8,17 @@ import { TaxReturnIncomeModel } from './models/income/tax-return.income.model'
 import { GetPersonPrefillResponse } from './dto/tax-return.response.dto'
 import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
 import { TaxReturnPropertyModel } from './models/property/tax-return.property.model'
+import { SubmitTaxReturnBody } from './dto/tax-return.submit-body.dto'
 
 export class MockTaxReturnService implements ITaxReturnService {
   constructor(@Inject(LOGGER_PROVIDER) private readonly logger: Logger) {}
+  createTaxReturn(
+    nationalId: string,
+    year: string,
+    body: SubmitTaxReturnBody,
+  ): Promise<TaxReturnModel> {
+    throw new Error('Method not implemented.')
+  }
   getPropertyPrefill(taxReturnId: string): Promise<TaxReturnPropertyModel> {
     throw new Error('Method not implemented.')
   }

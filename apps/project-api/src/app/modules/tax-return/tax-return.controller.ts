@@ -19,6 +19,7 @@ import { IsStringValidationPipe, NationalIdPipe } from '@hxm/pipelines'
 import {
   GetPersonPrefillResponse,
   PostPersonSubmitResponse,
+  TaxReturnCreate,
 } from './dto/tax-return.response.dto'
 import { PersonPrefill } from './dto/tax-return.person-prefill.dto'
 import { TaxReturnIncome } from './dto/income/tax-return.income.dto'
@@ -118,7 +119,6 @@ export class TaxReturnController {
           identifier: line.identifier,
           value: line.value,
           currency: line.currency,
-          propertyId: line.propertyId,
           propertyType: line.propertyType,
         }
 
@@ -167,7 +167,7 @@ If no prefill is found, returns 404.`,
 
   @Post('/tax-return/submit/:nationalId/:year')
   @ApiOperation({ operationId: 'submitTaxReturnByNationalIdAndYear' })
-  @ApiResponse({ status: 200, type: PostPersonSubmitResponse })
+  @ApiResponse({ status: 201, type: TaxReturnCreate })
   @ApiResponse({ status: 400, type: BadRequestResponse })
   @ApiResponse({ status: 404, type: NotFoundResponse })
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
@@ -175,10 +175,24 @@ If no prefill is found, returns 404.`,
     @Param('nationalId', NationalIdPipe) nationalId: string,
     @Param('year', IsStringValidationPipe) year: string,
     @Body() body: SubmitTaxReturnBody,
-  ) {
+  ): Promise<TaxReturnCreate> {
     this.logger.info('TaxReturnController.taxReturnSubmit' + nationalId)
-    throw new InternalServerErrorException(
-      'Tax return submit not implemented yet',
+
+    console.log(body)
+
+    const result = await this.TaxReturnService.createTaxReturn(
+      nationalId,
+      year,
+      body,
     )
+
+    const response: TaxReturnCreate = {
+      nationalId: result.nationalId,
+      year: result.year,
+      id: result.id,
+      timestamp: new Date(), // TODO should be the timestamp from the database
+    }
+
+    return response
   }
 }

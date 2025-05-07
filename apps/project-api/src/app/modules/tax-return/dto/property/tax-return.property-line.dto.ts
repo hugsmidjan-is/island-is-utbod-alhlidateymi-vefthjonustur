@@ -1,25 +1,32 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsOptional, MinLength, IsNumber, IsUUID } from 'class-validator'
+import {
+  IsOptional,
+  MinLength,
+  IsUUID,
+  IsInt,
+  Min,
+  IsObject,
+  ValidateNested,
+} from 'class-validator'
 import { TaxReturnPropertyType } from './tax-return.property-type.dto'
+import { Type } from 'class-transformer'
 
 export class TaxReturnPropertyLine {
   @ApiProperty({
     description: 'ID of the property line',
-    nullable: false,
     type: String,
   })
   @IsOptional()
   @IsUUID()
   id!: string
 
-  @ApiProperty({
-    description: 'ID of the property this line belongs to',
-    required: true,
-    nullable: false,
-    type: String,
-  })
-  @IsUUID()
-  propertyId!: string
+  // @ApiProperty({
+  //   description: 'ID of the property this line belongs to',
+  //   type: String,
+  // })
+  // @IsOptional()
+  // @IsUUID()
+  // propertyId!: string
 
   @ApiProperty({
     description: 'Label of the property line',
@@ -49,7 +56,10 @@ export class TaxReturnPropertyLine {
     nullable: false,
     type: Number,
   })
-  @IsNumber()
+  @IsInt({ message: 'Value must be a positive integer' })
+  @Min(1, {
+    message: 'Value must be a positive integer',
+  })
   value!: number
 
   @ApiProperty({
@@ -66,5 +76,8 @@ export class TaxReturnPropertyLine {
     nullable: false,
     type: TaxReturnPropertyType,
   })
+  @IsObject()
+  @ValidateNested({ each: true })
+  @Type(() => TaxReturnPropertyType)
   propertyType!: TaxReturnPropertyType
 }

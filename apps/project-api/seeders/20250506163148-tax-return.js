@@ -1,5 +1,4 @@
 'use strict'
-const { v4: uuidv4 } = require('uuid')
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -16,8 +15,8 @@ module.exports = {
       //   },
       // ])
 
-      const propertyDebtTypeUUID = uuidv4()
-      const generalDebtTypeUUID = uuidv4()
+      const propertyDebtTypeUUID = '89a1e794-f7bf-4ef9-a03a-000000000000'
+      const generalDebtTypeUUID = '89a1e794-f7bf-4ef9-a03a-100000000000'
       await queryInterface.bulkInsert('debt_types', [
         {
           id: propertyDebtTypeUUID,
@@ -29,7 +28,7 @@ module.exports = {
         },
       ])
 
-      const prefillDebtUUID = uuidv4()
+      const prefillDebtUUID = '89a1e794-f7bf-4ef9-a03a-200000000000'
       await queryInterface.bulkInsert('debt', [
         {
           id: prefillDebtUUID,
@@ -40,7 +39,7 @@ module.exports = {
 
       await queryInterface.bulkInsert('debt_lines', [
         {
-          id: uuidv4(),
+          id: '89a1e794-f7bf-4ef9-a03a-000000000111',
           debt_id: prefillDebtUUID,
           debt_type_id: propertyDebtTypeUUID,
           term: 360,
@@ -54,7 +53,7 @@ module.exports = {
           creditor_id: '4910080160',
         },
         {
-          id: uuidv4(),
+          id: '89a1e794-f7bf-4ef9-a03a-000000000222',
           debt_id: prefillDebtUUID,
           debt_type_id: generalDebtTypeUUID,
           label: 'Eftirstöðvar á korti númer: 4469 88XX XXXX 4567',
@@ -62,7 +61,7 @@ module.exports = {
           interest_amount: 39_200,
         },
         {
-          id: uuidv4(),
+          id: '89a1e794-f7bf-4ef9-a03a-000000000333',
           debt_id: prefillDebtUUID,
           debt_type_id: generalDebtTypeUUID,
           label: 'Aukalán',
@@ -70,7 +69,7 @@ module.exports = {
           interest_amount: 86_000,
         },
         {
-          id: uuidv4(),
+          id: '89a1e794-f7bf-4ef9-a03a-000000000444',
           debt_id: prefillDebtUUID,
           debt_type_id: generalDebtTypeUUID,
           label: '0142-26-732645 Varðan',
@@ -78,7 +77,7 @@ module.exports = {
           interest_amount: 14_500,
         },
         {
-          id: uuidv4(),
+          id: '89a1e794-f7bf-4ef9-a03a-000000000555',
           debt_id: prefillDebtUUID,
           debt_type_id: generalDebtTypeUUID,
           label: 'Kílómetragjald, Skatturinn',
@@ -86,7 +85,7 @@ module.exports = {
           interest_amount: 0,
         },
         {
-          id: uuidv4(),
+          id: '89a1e794-f7bf-4ef9-a03a-000000000666',
           debt_id: prefillDebtUUID,
           debt_type_id: generalDebtTypeUUID,
           label: 'Þing- og sveitarsjóðsgjöld, Skatturinn',

@@ -1,6 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { TaxReturnDebtType } from './tax-return.debt-type.dto'
-import { IsInt, IsOptional, Min, MinLength } from 'class-validator'
+import {
+  IsDateString,
+  IsInt,
+  IsObject,
+  IsOptional,
+  IsUUID,
+  Min,
+  MinLength,
+  ValidateNested,
+} from 'class-validator'
+import { Type } from 'class-transformer'
 
 export class TaxReturnDebtLine {
   @ApiProperty({
@@ -9,6 +19,7 @@ export class TaxReturnDebtLine {
     type: String,
   })
   @IsOptional()
+  @IsUUID()
   id!: string
 
   @ApiProperty({
@@ -17,6 +28,9 @@ export class TaxReturnDebtLine {
     nullable: false,
     type: TaxReturnDebtType,
   })
+  @IsObject()
+  @ValidateNested({ each: true })
+  @Type(() => TaxReturnDebtType)
   debtType!: TaxReturnDebtType
 
   @ApiProperty({
@@ -35,6 +49,7 @@ export class TaxReturnDebtLine {
     type: Date,
   })
   @IsOptional()
+  @IsDateString()
   originationDate?: Date
 
   @ApiProperty({
@@ -57,6 +72,10 @@ export class TaxReturnDebtLine {
     nullable: false,
     type: Number,
   })
+  @IsInt({ message: 'outstandingPrincipal must be a positive integer' })
+  @Min(1, {
+    message: 'outstandingPrincipal must be a positive integer',
+  })
   outstandingPrincipal!: number
 
   @ApiProperty({
@@ -64,6 +83,10 @@ export class TaxReturnDebtLine {
     type: Number,
   })
   @IsOptional()
+  @IsInt({ message: 'interestAmount must be a positive integer' })
+  @Min(1, {
+    message: 'interestAmount must be a positive integer',
+  })
   interestAmount?: number
 
   @ApiProperty({
@@ -71,6 +94,10 @@ export class TaxReturnDebtLine {
     type: Number,
   })
   @IsOptional()
+  @IsInt({ message: 'annualTotalPayment must be a positive integer' })
+  @Min(1, {
+    message: 'annualTotalPayment must be a positive integer',
+  })
   annualTotalPayment?: number
 
   @ApiProperty({
@@ -79,12 +106,17 @@ export class TaxReturnDebtLine {
     type: Number,
   })
   @IsOptional()
+  @IsInt({ message: 'annualTotalPrincipalPayment must be a positive integer' })
+  @Min(1, {
+    message: 'annualTotalPrincipalPayment must be a positive integer',
+  })
   annualTotalPrincipalPayment?: number
 
   @ApiProperty({
     description: 'Optional creditor id of the debt return line',
     type: String,
   })
+  @IsOptional()
   creditorId?: string
 
   @ApiProperty({
@@ -92,5 +124,6 @@ export class TaxReturnDebtLine {
     type: String,
     default: 'ISK',
   })
+  @IsOptional()
   currency?: string
 }
