@@ -1,3 +1,4 @@
+import { SubmitTaxReturnBody } from './dto/tax-return.submit-body.dto'
 import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
 import { TaxReturnIncomeModel } from './models/income/tax-return.income.model'
 import { TaxReturnPropertyModel } from './models/property/tax-return.property.model'
@@ -8,6 +9,11 @@ export interface ITaxReturnService {
   getIncomePrefill(taxReturnId: string): Promise<TaxReturnIncomeModel>
   getDebtPrefill(taxReturnId: string): Promise<TaxReturnDebtModel>
   getPropertyPrefill(taxReturnId: string): Promise<TaxReturnPropertyModel>
+  createTaxReturn(
+    nationalId: string,
+    year: string,
+    body: SubmitTaxReturnBody,
+  ): Promise<TaxReturnModel>
 }
 
 export const ITaxReturnService = Symbol('ITaxReturnService')

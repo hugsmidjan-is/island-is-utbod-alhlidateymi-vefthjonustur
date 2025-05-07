@@ -1,6 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { TaxReturnIncomeType } from './tax-return.income-type.dto'
-import { IsInt, IsOptional, Min, MinLength } from 'class-validator'
+import {
+  IsInt,
+  IsObject,
+  IsOptional,
+  Min,
+  MinLength,
+  ValidateNested,
+} from 'class-validator'
+import { Type } from 'class-transformer'
 
 export class TaxReturnIncomeLine {
   @ApiProperty({
@@ -18,6 +26,9 @@ export class TaxReturnIncomeLine {
     nullable: false,
     type: TaxReturnIncomeType,
   })
+  @IsObject()
+  @ValidateNested({ each: true })
+  @Type(() => TaxReturnIncomeType)
   incomeType!: TaxReturnIncomeType
 
   @ApiProperty({

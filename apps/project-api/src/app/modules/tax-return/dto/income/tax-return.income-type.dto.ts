@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { IsUUID } from 'class-validator'
 
 export class TaxReturnIncomeType {
   @ApiProperty({
@@ -7,6 +8,7 @@ export class TaxReturnIncomeType {
     nullable: false,
     type: String,
   })
+  @IsUUID()
   id!: string
 
   @ApiProperty({

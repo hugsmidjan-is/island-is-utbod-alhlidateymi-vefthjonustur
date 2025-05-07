@@ -1,11 +1,12 @@
 INSERT INTO
-  public.tax_return (id, year, person_id, name)
+  public.tax_return (id, year, person_id, name, type)
 VALUES
   (
     'bd5ade8e-cb7f-427d-935c-e09d0407b9bd',
     '2025',
     '1203894569',
-    'Jökull Þórðarson'
+    'Jökull Þórðarson',
+    'prefill'
   );
 
 INSERT INTO

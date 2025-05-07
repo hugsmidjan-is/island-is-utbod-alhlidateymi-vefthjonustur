@@ -36,6 +36,15 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false,
           },
+          type: {
+            type: Sequelize.ENUM('prefill', 'submit'),
+            allowNull: false,
+          },
+          submitted_at: {
+            type: 'TIMESTAMP WITH TIME ZONE',
+            allowNull: true,
+            defaultValue: null,
+          },
         },
         {
           indexes: [

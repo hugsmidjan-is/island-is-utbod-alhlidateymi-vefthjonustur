@@ -19,12 +19,12 @@ export class TaxReturnPropertyLineModel extends Model {
   @BelongsTo(() => TaxReturnPropertyModel, 'property_id')
   property!: TaxReturnPropertyModel
 
-  @Column({
-    type: DataType.UUID,
-    allowNull: false,
-    field: 'property_id',
-  })
-  propertyId!: string
+  // @Column({
+  //   type: DataType.UUID,
+  //   allowNull: false,
+  //   field: 'property_id',
+  // })
+  // propertyId!: string
 
   @Column({
     type: DataType.STRING,
@@ -58,10 +58,10 @@ export class TaxReturnPropertyLineModel extends Model {
   @BelongsTo(() => TaxReturnPropertyTypeModel, 'property_type_id')
   propertyType!: TaxReturnPropertyTypeModel
 
-  @Column({
-    type: DataType.UUID,
-    allowNull: false,
-    field: 'property_type_id',
-  })
-  propertyTypeId!: string
+  // @Column({
+  //   type: DataType.UUID,
+  //   allowNull: false,
+  //   field: 'property_type_id',
+  // })
+  // propertyTypeId!: string
 }

@@ -1,3 +1,4 @@
+import { fi } from 'date-fns/locale'
 import { Column, DataType, Model, Table } from 'sequelize-typescript'
 
 @Table({
@@ -30,4 +31,17 @@ export class TaxReturnModel extends Model {
     allowNull: false,
   })
   name!: string
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  type!: 'submit' | 'prefill'
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+    field: 'submitted_at',
+  })
+  submittedAt?: Date
 }
