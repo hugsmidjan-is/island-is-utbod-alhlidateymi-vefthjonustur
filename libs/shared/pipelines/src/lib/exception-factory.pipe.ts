@@ -19,10 +19,16 @@ export const ExceptionFactoryPipe = (apiName?: string) =>
           },
         )
 
-        return {
+        const result: Record<string, unknown> = {
           property: error.property,
           constraints: error.constraints,
         }
+
+        if ((error?.children?.length ?? 0) > 0) {
+          result.children = error.children
+        }
+
+        return result
       })
       return new BadRequestException(errs)
     },

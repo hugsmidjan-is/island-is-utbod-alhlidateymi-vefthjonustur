@@ -119,7 +119,7 @@ export class TaxReturnController {
           value: line.value,
           currency: line.currency,
           propertyId: line.propertyId,
-          propertyTypeId: line.propertyTypeId,
+          propertyType: line.propertyType,
         }
 
         return mapped
@@ -133,8 +133,10 @@ export class TaxReturnController {
     operationId: 'getTaxReturnPrefillByNationalIdAndYear',
     summary: 'Get tax return prefill for a person',
     description: `Given a national ID and year, returns the tax return prefill.
-                  This endpoint is used by the tax return frontend to get prefilled data for the tax return form.
-                  If no prefill is found, returns 404.`,
+
+This endpoint is used by the tax return frontend to get prefilled data for the tax return form.
+
+If no prefill is found, returns 404.`,
   })
   @ApiResponse({ status: 200, type: GetPersonPrefillResponse })
   @ApiResponse({ status: 400, type: BadRequestResponse })
