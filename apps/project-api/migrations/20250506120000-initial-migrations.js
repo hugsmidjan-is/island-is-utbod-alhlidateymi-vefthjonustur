@@ -22,6 +22,7 @@ module.exports = {
           modified: {
             type: 'TIMESTAMP WITH TIME ZONE',
             defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+            onUpdate: 'SET DEFAULT',
             allowNull: false,
           },
           year: {
