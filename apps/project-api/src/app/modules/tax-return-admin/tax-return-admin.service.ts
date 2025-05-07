@@ -12,6 +12,7 @@ import { v4 as uuid } from 'uuid'
 
 import { paginate, PaginationDto } from '@island.is/nest/pagination'
 import { PagedTaxReturnResponse } from '../tax-return/dto/tax-return.paged.dto'
+import { SubmitTaxReturnBody } from '../tax-return/dto/tax-return.submit-body.dto'
 
 export class TaxReturnAdminService implements ITaxReturnAdminService {
   constructor(
@@ -48,14 +49,16 @@ export class TaxReturnAdminService implements ITaxReturnAdminService {
     return result
   }
 
-  async createTaxReturn(nationalId: string): Promise<TaxReturnModel> {
+  async createTaxReturn(
+    nationalId: string,
+    body: Partial<SubmitTaxReturnBody>,
+  ): Promise<TaxReturnModel> {
     let result
     try {
       result = await this.taxReturnModel.create({
         id: uuid(),
-        year: 2024,
         nationalId,
-        name: 'Jökull Þórðarson',
+        ...body,
       })
     } catch (e) {
       this.logger.error('error creating tax return', {
@@ -90,10 +93,13 @@ export class TaxReturnAdminService implements ITaxReturnAdminService {
     return result
   }
 
-  async updateTaxReturn(id: String): Promise<boolean> {
+  async updateTaxReturn(
+    id: String,
+    body: SubmitTaxReturnBody,
+  ): Promise<boolean> {
     let result
     try {
-      result = await this.taxReturnModel.update({}, { where: { id } })
+      result = await this.taxReturnModel.update({ ...body }, { where: { id } })
     } catch (e) {
       this.logger.error('error updating tax return', {
         error: e,

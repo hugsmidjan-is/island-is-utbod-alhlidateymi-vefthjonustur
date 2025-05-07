@@ -21,6 +21,7 @@ import { IsStringValidationPipe, NationalIdPipe } from '@hxm/pipelines'
 import { PagedTaxReturnResponse } from '../tax-return/dto/tax-return.paged.dto'
 import { ITaxReturnAdminService } from './tax-return-admin.types'
 import { PaginationDto } from '@island.is/nest/pagination'
+import { SubmitTaxReturnBody } from '../tax-return/dto/tax-return.submit-body.dto'
 
 @Controller({
   version: '1',
@@ -50,7 +51,7 @@ export class TaxReturnAdminController {
     return pagedTaxReturns
   }
 
-  @Post('/admin/tax-return/:nationalId/:year')
+  @Post('/admin/tax-return/:nationalId')
   @ApiOperation({
     operationId: 'createTaxReturn',
     summary: 'Create a tax return for a person',
@@ -62,10 +63,10 @@ export class TaxReturnAdminController {
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
   async createTaxReturn(
     @Param('nationalId', NationalIdPipe) nationalId: string,
-    @Param('year', IsStringValidationPipe) year: string,
+    @Body() body: SubmitTaxReturnBody,
   ) {
     this.logger.info('TaxReturnController.createTaxReturn' + nationalId)
-    return await this.TaxReturnAdminService.createTaxReturn(nationalId)
+    return await this.TaxReturnAdminService.createTaxReturn(nationalId, body)
   }
 
   @Get('/admin/tax-return/:id')
@@ -95,13 +96,13 @@ export class TaxReturnAdminController {
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
   async patchTaxReturn(
     @Param('id', IsStringValidationPipe) id: string,
-    @Body() body: Object,
+    @Body() body: SubmitTaxReturnBody,
   ) {
     this.logger.info('TaxReturnController.patchTaxReturn', {
       id,
     })
 
-    const updated = await this.TaxReturnAdminService.updateTaxReturn(id)
+    const updated = await this.TaxReturnAdminService.updateTaxReturn(id, body)
     return { updated }
   }
 
