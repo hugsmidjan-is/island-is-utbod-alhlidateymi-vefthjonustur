@@ -57,9 +57,6 @@ export class TaxReturnPropertyLine {
     type: Number,
   })
   @IsInt({ message: 'Value must be a positive integer' })
-  @Min(1, {
-    message: 'Value must be a positive integer',
-  })
   value!: number
 
   @ApiProperty({

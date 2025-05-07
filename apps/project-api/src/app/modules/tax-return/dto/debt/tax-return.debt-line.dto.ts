@@ -73,9 +73,6 @@ export class TaxReturnDebtLine {
     type: Number,
   })
   @IsInt({ message: 'outstandingPrincipal must be a positive integer' })
-  @Min(1, {
-    message: 'outstandingPrincipal must be a positive integer',
-  })
   outstandingPrincipal!: number
 
   @ApiProperty({
@@ -84,9 +81,6 @@ export class TaxReturnDebtLine {
   })
   @IsOptional()
   @IsInt({ message: 'interestAmount must be a positive integer' })
-  @Min(1, {
-    message: 'interestAmount must be a positive integer',
-  })
   interestAmount?: number
 
   @ApiProperty({
@@ -95,9 +89,6 @@ export class TaxReturnDebtLine {
   })
   @IsOptional()
   @IsInt({ message: 'annualTotalPayment must be a positive integer' })
-  @Min(1, {
-    message: 'annualTotalPayment must be a positive integer',
-  })
   annualTotalPayment?: number
 
   @ApiProperty({
@@ -107,9 +98,6 @@ export class TaxReturnDebtLine {
   })
   @IsOptional()
   @IsInt({ message: 'annualTotalPrincipalPayment must be a positive integer' })
-  @Min(1, {
-    message: 'annualTotalPrincipalPayment must be a positive integer',
-  })
   annualTotalPrincipalPayment?: number
 
   @ApiProperty({
