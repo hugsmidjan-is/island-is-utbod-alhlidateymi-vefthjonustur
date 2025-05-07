@@ -111,6 +111,12 @@ module.exports = {
           creditor_id: {
             type: Sequelize.STRING,
           },
+          creditor_name: {
+            type: Sequelize.STRING,
+          },
+          write_down: {
+            type: Sequelize.FLOAT,
+          },
           currency: {
             type: Sequelize.STRING,
             defaultValue: 'ISK',

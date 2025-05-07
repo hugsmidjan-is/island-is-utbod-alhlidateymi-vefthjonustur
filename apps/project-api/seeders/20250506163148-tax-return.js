@@ -51,6 +51,7 @@ module.exports = {
           annual_total_payment: 2_280_000,
           annual_total_principal_payment: 1_360_000,
           creditor_id: '4910080160',
+          creditor_name: 'Íslandsbanki hf.',
         },
         {
           id: '89a1e794-f7bf-4ef9-a03a-000000000222',
