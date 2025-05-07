@@ -63,8 +63,8 @@ export class TaxReturnAdminController {
   async createTaxReturn(
     @Param('nationalId', NationalIdPipe) nationalId: string,
   ) {
-    this.logger.info('TaxReturnController.getTaxReturn' + nationalId)
-    throw new InternalServerErrorException('Tax return get not implemented yet')
+    this.logger.info('TaxReturnController.createTaxReturn' + nationalId)
+    return await this.TaxReturnAdminService.createTaxReturn(nationalId)
   }
 
   @Get('/admin/tax-return/:id')

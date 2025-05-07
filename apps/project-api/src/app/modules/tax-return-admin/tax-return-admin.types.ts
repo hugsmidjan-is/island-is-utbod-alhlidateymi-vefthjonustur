@@ -4,10 +4,10 @@ import { PagedTaxReturnResponse } from '../tax-return/dto/tax-return.paged.dto'
 
 export interface ITaxReturnAdminService {
   getTaxReturns(query: PaginationDto): Promise<PagedTaxReturnResponse>
-  // createTaxReturn(nationalId: string): Promise<TaxReturnModel>
-  // getTaxReturn(id: string): Promise<TaxReturnModel>
-  // updateTaxReturn(id: string): Promise<TaxReturnModel>
-  // deleteTaxReturn(id: string): Promise<TaxReturnModel>
+  createTaxReturn(nationalId: string): Promise<TaxReturnModel>
+  getTaxReturn(id: string): Promise<TaxReturnModel>
+  updateTaxReturn(id: string): Promise<boolean>
+  deleteTaxReturn(id: string): Promise<boolean>
 }
 
 export const ITaxReturnAdminService = Symbol('ITaxReturnAdminService')
