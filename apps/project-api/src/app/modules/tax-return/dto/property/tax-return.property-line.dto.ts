@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsOptional, MinLength, IsNumber, IsUUID } from 'class-validator'
+import { TaxReturnPropertyType } from './tax-return.property-type.dto'
 
 export class TaxReturnPropertyLine {
   @ApiProperty({
@@ -60,11 +61,10 @@ export class TaxReturnPropertyLine {
   currency?: string
 
   @ApiProperty({
-    description: 'ID of the property type this line belongs to',
+    description: 'Property type this line belongs to',
     required: true,
     nullable: false,
-    type: String,
+    type: TaxReturnPropertyType,
   })
-  @IsUUID()
-  propertyTypeId!: string
+  propertyType!: TaxReturnPropertyType
 }

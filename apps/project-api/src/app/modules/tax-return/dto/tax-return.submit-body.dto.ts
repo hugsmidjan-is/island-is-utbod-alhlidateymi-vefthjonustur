@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer'
 import { ApiProperty } from '@nestjs/swagger'
 import { ArrayMinSize, MinLength, ValidateNested } from 'class-validator'
 import { TaxReturnIncomeLine } from './income/tax-return.income-line.dto'
@@ -12,5 +13,6 @@ export class SubmitTaxReturnBody {
   })
   @ArrayMinSize(1)
   @ValidateNested({ each: true })
+  @Type(() => TaxReturnIncomeLine)
   incomeLines!: TaxReturnIncomeLine[]
 }
