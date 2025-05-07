@@ -25,6 +25,7 @@ import { Transaction } from 'sequelize'
 import { TaxReturnIncomeLine } from './dto/income/tax-return.income-line.dto'
 import { TaxReturnPropertyLine } from './dto/property/tax-return.property-line.dto'
 import { TaxReturnDebtLine } from './dto/debt/tax-return.debt-line.dto'
+import { TaxReturnTypes } from './dto/tax-return.types.dto'
 
 export class TaxReturnService implements ITaxReturnService {
   constructor(
@@ -37,6 +38,12 @@ export class TaxReturnService implements ITaxReturnService {
     private taxReturnDebtModel: typeof TaxReturnDebtModel,
     @InjectModel(TaxReturnPropertyModel)
     private taxReturnPropertyModel: typeof TaxReturnPropertyModel,
+    @InjectModel(TaxReturnPropertyTypeModel)
+    private taxReturnPropertyTypeModel: typeof TaxReturnPropertyTypeModel,
+    @InjectModel(TaxReturnDebtTypeModel)
+    private taxReturnDebtTypeModel: typeof TaxReturnDebtTypeModel,
+    @InjectModel(TaxReturnIncomeTypeModel)
+    private taxReturnIncomeTypeModel: typeof TaxReturnIncomeTypeModel,
   ) {}
 
   async getTaxReturn(
@@ -299,5 +306,14 @@ export class TaxReturnService implements ITaxReturnService {
     }
 
     return taxReturn
+  }
+
+  async getTaxReturnTypes(): Promise<TaxReturnTypes> {
+    const propertyTypes = await this.taxReturnPropertyTypeModel.findAll()
+    const debtTypes = await this.taxReturnDebtTypeModel.findAll()
+    const incomeTypes = await this.taxReturnIncomeTypeModel.findAll()
+    const dto = new TaxReturnTypes(propertyTypes, debtTypes, incomeTypes)
+
+    return dto
   }
 }

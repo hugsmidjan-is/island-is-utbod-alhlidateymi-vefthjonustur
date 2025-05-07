@@ -1,4 +1,5 @@
 import { SubmitTaxReturnBody } from './dto/tax-return.submit-body.dto'
+import { TaxReturnTypes } from './dto/tax-return.types.dto'
 import { TaxReturnDebtModel } from './models/debt/tax-return.debt.model'
 import { TaxReturnIncomeModel } from './models/income/tax-return.income.model'
 import { TaxReturnPropertyModel } from './models/property/tax-return.property.model'
@@ -14,6 +15,7 @@ export interface ITaxReturnService {
     year: string,
     body: SubmitTaxReturnBody,
   ): Promise<TaxReturnModel>
+  getTaxReturnTypes(): Promise<TaxReturnTypes>
 }
 
 export const ITaxReturnService = Symbol('ITaxReturnService')

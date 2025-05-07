@@ -32,6 +32,7 @@ import { TaxReturnDebtLine } from './dto/debt/tax-return.debt-line.dto'
 import { TaxReturnPropertyModel } from './models/property/tax-return.property.model'
 import { TaxReturnProperty } from './dto/property/tax-return.property.dto'
 import { TaxReturnPropertyLine } from './dto/property/tax-return.property-line.dto'
+import { TaxReturnTypes } from './dto/tax-return.types.dto'
 
 @Controller({
   version: '1',
@@ -194,5 +195,21 @@ If no prefill is found, returns 404.`,
     }
 
     return response
+  }
+
+  @Get('/tax-return/types/')
+  @ApiOperation({
+    operationId: 'getTaxReturnTypes',
+    summary: 'Get tax return types (income, debt and property)',
+    description: `Will fetch all data pertaining to income, debt and property types`,
+  })
+  @ApiResponse({ status: 200, type: GetPersonPrefillResponse })
+  @ApiResponse({ status: 400, type: BadRequestResponse })
+  @ApiResponse({ status: 404, type: NotFoundResponse })
+  @ApiResponse({ status: 500, type: InternalServerErrorResponse })
+  async getTaxReturnTypes(): Promise<TaxReturnTypes> {
+    const taxReturnTypes = await this.TaxReturnService.getTaxReturnTypes()
+
+    return taxReturnTypes
   }
 }
