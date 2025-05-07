@@ -10,7 +10,7 @@ import { LOGGER_PROVIDER } from '@hxm/logging'
 import { Logger } from 'winston'
 import { v4 as uuid } from 'uuid'
 
-import { PageInfo, paginate, PaginationDto } from '@island.is/nest/pagination'
+import { paginate, PaginationDto } from '@island.is/nest/pagination'
 import { PagedTaxReturnResponse } from '../tax-return/dto/tax-return.paged.dto'
 
 export class TaxReturnAdminService implements ITaxReturnAdminService {
@@ -37,6 +37,7 @@ export class TaxReturnAdminService implements ITaxReturnAdminService {
       this.logger.error('error fetching tax returns from database', {
         error: e,
       })
+
       throw new InternalServerErrorException('unexpected error')
     }
 
@@ -60,6 +61,7 @@ export class TaxReturnAdminService implements ITaxReturnAdminService {
       this.logger.error('error creating tax return', {
         error: e,
       })
+
       throw new InternalServerErrorException('unexpected error')
     }
 
@@ -96,6 +98,7 @@ export class TaxReturnAdminService implements ITaxReturnAdminService {
       this.logger.error('error updating tax return', {
         error: e,
       })
+
       throw new InternalServerErrorException('unexpected error')
     }
 

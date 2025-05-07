@@ -79,7 +79,7 @@ export class TaxReturnAdminController {
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
   async getTaxReturn(@Param('id', IsStringValidationPipe) id: string) {
     this.logger.info('TaxReturnController.getTaxReturn' + id)
-    throw new InternalServerErrorException('Tax return get not implemented yet')
+    return this.TaxReturnAdminService.getTaxReturn(id)
   }
 
   @Patch('/admin/tax-return/:id')
@@ -99,9 +99,8 @@ export class TaxReturnAdminController {
     this.logger.info('TaxReturnController.patchTaxReturn', {
       id,
     })
-    throw new InternalServerErrorException(
-      'Tax return patch not implemented yet',
-    )
+
+    return { updated: this.TaxReturnAdminService.updateTaxReturn(id) }
   }
 
   @Delete('/admin/tax-return/:id')
@@ -118,8 +117,7 @@ export class TaxReturnAdminController {
     this.logger.info('TaxReturnController.deleteTaxReturn', {
       id,
     })
-    throw new InternalServerErrorException(
-      'Tax return delete not implemented yet',
-    )
+
+    return { deleted: this.TaxReturnAdminService.deleteTaxReturn(id) }
   }
 }
