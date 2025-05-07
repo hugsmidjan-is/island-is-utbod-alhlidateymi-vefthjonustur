@@ -98,6 +98,8 @@ export class TaxReturnController {
           annualTotalPayment: line.annualTotalPayment,
           annualTotalPrincipalPayment: line.annualTotalPrincipalPayment,
           creditorId: line.creditorId,
+          creditorName: line.creditorName,
+          writeDown: line.writeDown,
           currency: line.currency,
         }
 

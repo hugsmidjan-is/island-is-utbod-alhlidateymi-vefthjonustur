@@ -90,6 +90,20 @@ export class TaxReturnDebtLineModel extends Model {
   @Column({
     type: DataType.STRING,
     allowNull: true,
+    field: 'creditor_name',
+  })
+  creditorName?: string
+
+  @Column({
+    type: DataType.FLOAT,
+    allowNull: true,
+    field: 'write_down',
+  })
+  writeDown?: number
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
     defaultValue: 'ISK',
     field: 'currency',
   })

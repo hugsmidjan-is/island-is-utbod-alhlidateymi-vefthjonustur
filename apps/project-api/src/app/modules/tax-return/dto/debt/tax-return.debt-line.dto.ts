@@ -108,6 +108,20 @@ export class TaxReturnDebtLine {
   creditorId?: string
 
   @ApiProperty({
+    description: 'Optional creditor name of the debt return line',
+    type: String,
+  })
+  @IsOptional()
+  creditorName?: string
+
+  @ApiProperty({
+    description: 'Optional write-down of the debt return line',
+    type: Number,
+  })
+  @IsOptional()
+  writeDown?: number
+
+  @ApiProperty({
     description: 'Optional currency of the debt return line',
     type: String,
     default: 'ISK',
