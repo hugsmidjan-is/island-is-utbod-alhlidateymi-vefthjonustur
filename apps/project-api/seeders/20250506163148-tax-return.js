@@ -44,6 +44,7 @@ module.exports = {
           debt_type_id: propertyDebtTypeUUID,
           term: 360,
           origination_date: new Date('2021-06-15'),
+          ratio: 0.548846,
           identifier: '56783900123',
           label: 'Bláfjallagata 12',
           outstanding_principal: 28_540_000,
