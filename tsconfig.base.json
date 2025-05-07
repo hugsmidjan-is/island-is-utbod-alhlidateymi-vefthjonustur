@@ -47,6 +47,12 @@
       ],
       "@island.is/shared/utils": [
         "submodules/island.is/libs/shared/utils/src/index.ts"
+      ],
+      "@island.is/nest/pagination": [
+        "submodules/island.is/libs/nest/pagination/src/index.ts"
+      ],
+      "@island.is/nest/graphql": [
+        "submodules/island.is/libs/nest/graphql/src/index.ts"
       ]
     },
     "sourceMap": true,
