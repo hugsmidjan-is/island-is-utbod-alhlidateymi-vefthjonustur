@@ -100,7 +100,8 @@ export class TaxReturnAdminController {
       id,
     })
 
-    return { updated: this.TaxReturnAdminService.updateTaxReturn(id) }
+    const updated = await this.TaxReturnAdminService.updateTaxReturn(id)
+    return { updated }
   }
 
   @Delete('/admin/tax-return/:id')
@@ -117,7 +118,7 @@ export class TaxReturnAdminController {
     this.logger.info('TaxReturnController.deleteTaxReturn', {
       id,
     })
-
-    return { deleted: this.TaxReturnAdminService.deleteTaxReturn(id) }
+    const deleted = await this.TaxReturnAdminService.deleteTaxReturn(id)
+    return { deleted }
   }
 }
