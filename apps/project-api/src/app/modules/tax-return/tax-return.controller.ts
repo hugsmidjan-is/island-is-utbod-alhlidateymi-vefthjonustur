@@ -190,7 +190,7 @@ If no prefill is found, returns 404.`,
       nationalId: result.nationalId,
       year: result.year,
       id: result.id,
-      timestamp: result.createdAt,
+      timestamp: result.submittedAt!,
     }
 
     return response

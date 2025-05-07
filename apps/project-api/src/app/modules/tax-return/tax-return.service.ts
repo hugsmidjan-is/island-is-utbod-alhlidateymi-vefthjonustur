@@ -289,8 +289,10 @@ export class TaxReturnService implements ITaxReturnService {
       await this.saveIncome(taxReturn.id, body.incomeLines, t)
       await this.saveProperty(taxReturn.id, body.propertyLines, t)
       await this.saveDebt(taxReturn.id, body.debtLines, t)
-      taxReturn.type = 'submit'
-      taxReturn.submittedAt = new Date()
+      await this.taxReturnModel.update(
+        { type: 'submit', submittedAt: new Date() },
+        { where: { id: taxReturn.id }, transaction: t },
+      )
       await t.commit()
     } catch (e) {
       this.logger.error('error creating tax return', { error: e })
@@ -298,7 +300,7 @@ export class TaxReturnService implements ITaxReturnService {
       throw new InternalServerErrorException('unexpected error')
     }
 
-    return taxReturn
+    return await this.getTaxReturn(nationalId, year)
   }
 
   async getTaxReturnTypes(): Promise<TaxReturnTypes> {
