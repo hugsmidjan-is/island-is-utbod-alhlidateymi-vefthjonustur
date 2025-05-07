@@ -10,6 +10,14 @@ export class TaxReturnIncomeType {
   id!: string
 
   @ApiProperty({
+    description: 'Code of the income return type',
+    required: true,
+    nullable: false,
+    type: String,
+  })
+  code!: string
+
+  @ApiProperty({
     description: 'Name of the income return type',
     required: true,
     nullable: false,
