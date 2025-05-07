@@ -46,11 +46,11 @@ export class TaxReturnDebtLine {
 
   @ApiProperty({
     description: 'Optional originating date of the debt return line',
-    type: Date,
+    type: String,
   })
   @IsOptional()
   @IsDateString()
-  originationDate?: Date
+  originationDate?: string
 
   @ApiProperty({
     description: 'Optional identifier of the debt return line',

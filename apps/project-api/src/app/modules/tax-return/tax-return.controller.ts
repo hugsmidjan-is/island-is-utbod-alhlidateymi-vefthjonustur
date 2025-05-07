@@ -41,7 +41,7 @@ import { TaxReturnTypes } from './dto/tax-return.types.dto'
 export class TaxReturnController {
   constructor(
     @Inject(ITaxReturnService)
-    private readonly TaxReturnService: ITaxReturnService,
+    private readonly taxReturnService: ITaxReturnService,
     @Inject(LOGGER_PROVIDER) private readonly logger: Logger,
   ) {}
 
@@ -91,7 +91,7 @@ export class TaxReturnController {
           debtType: line.debtType,
           label: line.label,
           outstandingPrincipal: line.outstandingPrincipal,
-          originationDate: line.originationDate,
+          originationDate: line.originationDate?.toString(),
           identifier: line.identifier,
           term: line.term,
           interestAmount: line.interestAmount,
@@ -147,11 +147,11 @@ If no prefill is found, returns 404.`,
     @Param('nationalId', NationalIdPipe) nationalId: string,
     @Param('year', IsStringValidationPipe) year: string,
   ): Promise<GetPersonPrefillResponse> {
-    const taxReturn = await this.TaxReturnService.getTaxReturn(nationalId, year)
+    const taxReturn = await this.taxReturnService.getTaxReturn(nationalId, year)
     const { id } = taxReturn
-    const incomePrefill = await this.TaxReturnService.getIncomePrefill(id)
-    const debtPrefill = await this.TaxReturnService.getDebtPrefill(id)
-    const propertyPrefill = await this.TaxReturnService.getPropertyPrefill(id)
+    const incomePrefill = await this.taxReturnService.getIncomePrefill(id)
+    const debtPrefill = await this.taxReturnService.getDebtPrefill(id)
+    const propertyPrefill = await this.taxReturnService.getPropertyPrefill(id)
 
     const prefill: PersonPrefill = {
       nationalId: taxReturn.nationalId,
@@ -167,7 +167,10 @@ If no prefill is found, returns 404.`,
   }
 
   @Post('/tax-return/submit/:nationalId/:year')
-  @ApiOperation({ operationId: 'submitTaxReturnByNationalIdAndYear' })
+  @ApiOperation({
+    operationId: 'submitTaxReturnByNationalIdAndYear',
+    summary: 'Submit tax return for a person',
+  })
   @ApiResponse({ status: 201, type: TaxReturnCreate })
   @ApiResponse({ status: 400, type: BadRequestResponse })
   @ApiResponse({ status: 404, type: NotFoundResponse })
@@ -177,11 +180,7 @@ If no prefill is found, returns 404.`,
     @Param('year', IsStringValidationPipe) year: string,
     @Body() body: SubmitTaxReturnBody,
   ): Promise<TaxReturnCreate> {
-    this.logger.info('TaxReturnController.taxReturnSubmit' + nationalId)
-
-    console.log(body)
-
-    const result = await this.TaxReturnService.createTaxReturn(
+    const result = await this.taxReturnService.createTaxReturn(
       nationalId,
       year,
       body,
@@ -191,7 +190,7 @@ If no prefill is found, returns 404.`,
       nationalId: result.nationalId,
       year: result.year,
       id: result.id,
-      timestamp: new Date(), // TODO should be the timestamp from the database
+      timestamp: result.createdAt,
     }
 
     return response
@@ -208,7 +207,7 @@ If no prefill is found, returns 404.`,
   @ApiResponse({ status: 404, type: NotFoundResponse })
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
   async getTaxReturnTypes(): Promise<TaxReturnTypes> {
-    const taxReturnTypes = await this.TaxReturnService.getTaxReturnTypes()
+    const taxReturnTypes = await this.taxReturnService.getTaxReturnTypes()
 
     return taxReturnTypes
   }

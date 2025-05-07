@@ -10,9 +10,11 @@ Nýtum það SÍ notar:
 
 Fylgjum [API Design Guide](https://docs.devland.is/technical-overview/api-design-guide), sér í lagi:
 
+- [Data Transfer Objects](https://docs.devland.is/technical-overview/api-design-guide/data-transfer-objects)
 - [Naming Conventions](https://docs.devland.is/technical-overview/api-design-guide/naming-conventions)
 - [Pagination](https://docs.devland.is/technical-overview/api-design-guide/pagination)
-- Fleira? TODO
+- [Resource Oriented Design](https://docs.devland.is/technical-overview/api-design-guide/resource-oriented-design)
+-
 
 ## Hlutir sem mættu betur fara
 

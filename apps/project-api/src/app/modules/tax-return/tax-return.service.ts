@@ -243,12 +243,7 @@ export class TaxReturnService implements ITaxReturnService {
           const originationDate = line.originationDate
             ? new Date(line.originationDate)
             : null
-          console.log(
-            'originationDate :>> ',
-            originationDate,
-            debtId,
-            line.debtType.id,
-          )
+
           return {
             id: uuidv4(),
             debt_id: debtId,
@@ -280,13 +275,11 @@ export class TaxReturnService implements ITaxReturnService {
     body: SubmitTaxReturnBody,
   ): Promise<TaxReturnModel> {
     const taxReturn = await this.getTaxReturn(nationalId, year)
-
     if (!taxReturn) {
       throw new BadRequestException(`tax return does not exists`)
     }
 
     const t = await this.taxReturnModel.sequelize?.transaction()
-
     if (!t) {
       this.logger.error('error creating transaction')
       throw new InternalServerErrorException('unexpected error')
