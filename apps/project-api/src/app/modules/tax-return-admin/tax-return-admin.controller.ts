@@ -9,6 +9,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import {
@@ -17,13 +18,20 @@ import {
   InternalServerErrorResponse,
 } from 'apps/project-api/src/types/responses'
 import { IsStringValidationPipe, NationalIdPipe } from '@hxm/pipelines'
+import { PagedTaxReturnResponse } from '../tax-return/dto/tax-return.paged.dto'
+import { ITaxReturnAdminService } from './tax-return-admin.types'
+import { PaginationDto } from '@island.is/nest/pagination'
 
 @Controller({
   version: '1',
 })
 @ApiTags('Tax Return admin API')
 export class TaxReturnAdminController {
-  constructor(@Inject(LOGGER_PROVIDER) private readonly logger: Logger) {}
+  constructor(
+    @Inject(ITaxReturnAdminService)
+    private readonly TaxReturnAdminService: ITaxReturnAdminService,
+    @Inject(LOGGER_PROVIDER) private readonly logger: Logger,
+  ) {}
 
   @Get('/admin/tax-return/')
   @ApiOperation({
@@ -31,16 +39,15 @@ export class TaxReturnAdminController {
     summary: 'Get all tax returns',
     description: `Returns all tax returns for all people.`,
   })
-  @ApiResponse({ status: 200, type: Object })
+  @ApiResponse({ status: 200, type: PagedTaxReturnResponse })
   @ApiResponse({ status: 400, type: BadRequestResponse })
   @ApiResponse({ status: 404, type: NotFoundResponse })
   @ApiResponse({ status: 500, type: InternalServerErrorResponse })
-  async getTaxReturns() {
-    // TODO paging
+  async getTaxReturns(@Query() query: PaginationDto) {
     this.logger.info('TaxReturnController.getTaxReturns')
-    throw new InternalServerErrorException(
-      'Tax returns get not implemented yet',
-    )
+    const pagedTaxReturns =
+      await this.TaxReturnAdminService.getTaxReturns(query)
+    return pagedTaxReturns
   }
 
   @Post('/admin/tax-return/:nationalId')
